@@ -6,7 +6,12 @@
   "scripts": {
     "format": "npx prettier --write .",
     "lint": "npx eslint . --max-warnings 0",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format:check": "npx prettier . --check \"!**.ts\"",
+    "test": "npx playwright test",
+    "test:headed": "npm run test -- --headed",
+    "test:ui": "npx playwright test -- --ui",
+    "show-report": "npx playwright show-report"
   },
   "keywords": [],
   "author": "",
