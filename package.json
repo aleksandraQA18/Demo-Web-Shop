@@ -31,5 +31,8 @@
     "husky": "^9.1.7",
     "prettier": "^3.7.4",
     "typescript-eslint": "^8.53.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }
