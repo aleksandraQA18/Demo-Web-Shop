@@ -7,12 +7,16 @@ export class LoginPage extends BasePage {
   email: Locator;
   password: Locator;
   loginButton: Locator;
+  failLoginMessage: Locator;
 
   constructor(page: Page) {
     super(page);
     this.email = this.page.locator('#Email');
     this.password = this.page.locator('#Password');
     this.loginButton = this.page.locator('.login-button');
+    this.failLoginMessage = this.page.locator(
+      '.validation-summary-errors span',
+    );
   }
 
   async login(user: User): Promise<void> {
