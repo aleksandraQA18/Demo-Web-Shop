@@ -11,7 +11,8 @@
     "test": "npx playwright test",
     "test:headed": "npm run test -- --headed",
     "test:ui": "npx playwright test -- --ui",
-    "show-report": "npx playwright show-report"
+    "show-report": "npx playwright show-report",
+    "test:smoke": "npx playwright test --grep \"@smoke\""
   },
   "keywords": [],
   "author": "",
