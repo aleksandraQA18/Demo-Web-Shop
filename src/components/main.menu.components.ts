@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 export class MainMenuComponent {
-  homePage: Locator;
+  homePageLogo: Locator;
   booksButton: Locator;
   computersButton: Locator;
 
@@ -12,6 +12,6 @@ export class MainMenuComponent {
     this.computersButton = this.page.locator(
       '//ul[@class="top-menu"]//a[@href="/computers"]',
     );
-    this.homePage = this.page.locator('.header-logo');
+    this.homePageLogo = this.page.locator('.header-logo');
   }
 }
