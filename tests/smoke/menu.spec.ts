@@ -27,7 +27,7 @@ test.describe('Verify main menu navigation', { tag: '@smoke' }, () => {
 
     //Act
     await booksPage.goto();
-    await booksPage.mainMenu.homePage.click();
+    await booksPage.mainMenu.homePageLogo.click();
     const title = await homePage.getTitle();
 
     //Assert
