@@ -5,20 +5,21 @@ import test, { expect } from '@playwright/test';
 
 test.describe('Verify login', () => {
   let loginPage: LoginPage;
-  let homePage: HomePage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    homePage = new HomePage(page);
+    await loginPage.goto();
   });
 
-  test('user can login with valid data', async () => {
+  test('user can login with valid data', async ({ page }) => {
+    //Arrange
+    const homePage = new HomePage(page);
+
     //Act
-    await loginPage.goto();
     await loginPage.login(user);
 
     //Assert
-    await expect(homePage.userAccount).toHaveText(user.email);
+    await expect(homePage.topMenu.userAccount).toHaveText(user.email);
   });
 
   test('user cannot login with invalid email', async () => {
@@ -28,7 +29,6 @@ test.describe('Verify login', () => {
     user.email = 'invalidemail@gmail.com';
 
     //Act
-    await loginPage.goto();
     await loginPage.login(user);
 
     //Assert
@@ -42,7 +42,6 @@ test.describe('Verify login', () => {
     user.password = 'Password123';
 
     //Act
-    await loginPage.goto();
     await loginPage.login(user);
 
     //Assert
