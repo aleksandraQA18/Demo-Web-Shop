@@ -4,31 +4,47 @@ import { HomePage } from '../../src/pages/home.page';
 import test, { expect } from '@playwright/test';
 
 test.describe('Verify main menu navigation', { tag: '@smoke' }, () => {
-  test('computers button navigates to computers page', async ({ page }) => {
+  let booksPage: BooksPage;
+
+  test.beforeEach(async ({ page }) => {
+    booksPage = new BooksPage(page);
+    await booksPage.goto();
+  });
+
+  test('home page button navigates to home page DWS-01-02', async ({
+    page,
+  }) => {
     //Arrange
-    const booksPage = new BooksPage(page);
-    const computersPage = new ComputersPage(page);
-    const expectedTitle = 'Demo Web Shop. Computers';
+    const homePage = new HomePage(page);
+    const expectedTitle = 'Demo Web Shop';
 
     //Act
-    await booksPage.goto();
-    await booksPage.mainMenu.computersButton.click();
-    const title = await computersPage.getTitle();
+    await booksPage.mainMenu.homePageLogo.click();
+    const title = await homePage.getTitle();
 
     //Assert
     expect(title).toEqual(expectedTitle);
   });
 
-  test('home page button navigates to home page', async ({ page }) => {
+  test('navigate to Books category DWS-01-03', { tag: '@smoke' }, async () => {
     //Arrange
-    const booksPage = new BooksPage(page);
-    const homePage = new HomePage(page);
-    const expectedTitle = 'Demo Web Shop';
+    const expectedTitle = 'Demo Web Shop. Books';
+
+    //Assert
+    const title = await booksPage.getTitle();
+    expect(title).toEqual(expectedTitle);
+  });
+
+  test('computers button navigates to computers page DWS-01-04', async ({
+    page,
+  }) => {
+    //Arrange
+    const computersPage = new ComputersPage(page);
+    const expectedTitle = 'Demo Web Shop. Computers';
 
     //Act
-    await booksPage.goto();
-    await booksPage.mainMenu.homePageLogo.click();
-    const title = await homePage.getTitle();
+    await booksPage.mainMenu.computersButton.click();
+    const title = await computersPage.getTitle();
 
     //Assert
     expect(title).toEqual(expectedTitle);

@@ -14,7 +14,7 @@ test.describe('Verify register', () => {
     await registerPage.goto();
   });
 
-  test('register new user', async ({ page }) => {
+  test('register new user DWS-06-01', async ({ page }) => {
     //Arrange
     const expectedMessage = 'Your registration completed';
     const registerResultPage = new RegisterResultPage(page);
@@ -31,7 +31,7 @@ test.describe('Verify register', () => {
     );
   });
 
-  test('register new user with invalid email', async () => {
+  test('register new user with invalid email DWS-06-02', async () => {
     //Arrange
     registerUserData.email = 'invalidemail';
     const expectedMessage = 'Wrong email';
@@ -43,7 +43,7 @@ test.describe('Verify register', () => {
     await expect(registerPage.invalidEmailEror).toHaveText(expectedMessage);
   });
 
-  test('register new user with invalid password', async () => {
+  test('register new user with invalid password DWS-06-03', async () => {
     //Arrange
     registerUserData.password = 'test';
     const expectedMessage = 'The password should have at least 6 characters.';

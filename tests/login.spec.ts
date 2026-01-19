@@ -11,7 +11,7 @@ test.describe('Verify login', () => {
     await loginPage.goto();
   });
 
-  test('user can login with valid data', async ({ page }) => {
+  test('user can login with valid data DWS-06-04', async ({ page }) => {
     //Arrange
     const homePage = new HomePage(page);
 
@@ -22,7 +22,7 @@ test.describe('Verify login', () => {
     await expect(homePage.topMenu.userAccount).toHaveText(user.email);
   });
 
-  test('user cannot login with invalid email', async () => {
+  test('user cannot login with invalid email DWS-06-05', async () => {
     //Arrange
     const expectedMessage =
       'Login was unsuccessful. Please correct the errors and try again.';
@@ -35,7 +35,7 @@ test.describe('Verify login', () => {
     await expect(loginPage.failLoginMessage).toHaveText(expectedMessage);
   });
 
-  test('user cannot login with invalid password', async () => {
+  test('user cannot login with invalid password DWS-06-06', async () => {
     //Arrange
     const expectedMessage =
       'Login was unsuccessful. Please correct the errors and try again.';
