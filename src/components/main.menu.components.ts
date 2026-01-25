@@ -4,6 +4,7 @@ export class MainMenuComponent {
   homePageLogo: Locator;
   booksButton: Locator;
   computersButton: Locator;
+  desktopsButton: Locator;
 
   constructor(private page: Page) {
     this.booksButton = this.page.locator(
@@ -13,5 +14,8 @@ export class MainMenuComponent {
       '//ul[@class="top-menu"]//a[@href="/computers"]',
     );
     this.homePageLogo = this.page.locator('.header-logo');
+    this.desktopsButton = this.page.locator(
+      '//ul[@class="top-menu"]//a[@href="/desktops"]',
+    );
   }
 }

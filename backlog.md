@@ -7,22 +7,23 @@
 3. DWS-01-03 User can access Books Category from main menu
 4. DWS-01-04 User can access Computers Category from main menu
 
-🔹 EPIC 2: Category „Camera & Photo” DWS-02
+🔹 EPIC 2: Category „Books” DWS-02
 
 1. DWS-01-01 Display category page
 2. DWS-01-02 Products list is visible
 3. DWS-01-03 Each product has name, price, and „Add to cart” button
 4. DWS-01-04 Clicking on a product opens the details page
+5. DWS-01-05 User can click add to cart on the list
 
 🔹 EPIC 3: Product Page DWS-03
 
-1. Wyświetlenie nazwy produktu
+<!-- 1. Wyświetlenie nazwy produktu
 2. Wyświetlenie ceny
 3. Przycisk „Add to cart” jest aktywny
 4. Kliknięcie „Add to cart” dodaje produkt do koszyka
-5. Wyświetla się komunikat sukcesu (notification bar)
+5. Wyświetla się komunikat sukcesu (notification bar) -->
 
-🔹 EPIC 4: Basket DWS-04
+🔹 EPIC 4: Cart DWS-04
 
 1. Koszyk zawiera dodany produkt
 2. Zgadza się nazwa produktu
