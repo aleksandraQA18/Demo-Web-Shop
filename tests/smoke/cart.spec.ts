@@ -12,7 +12,7 @@ test.describe('User can add items to cart', () => {
     await booksPage.clickAddToCart(item);
   });
 
-  test('add book to cart from the list DWS-01-05', async () => {
+  test('add book to cart from the list DWS-01-06', async () => {
     //Arrange
     const expectedNotification =
       'The product has been added to your shopping cart';
@@ -25,7 +25,7 @@ test.describe('User can add items to cart', () => {
     await expect(booksPage.cartItemQty).toHaveText('(1)');
   });
 
-  test('mini shopping cart displays correct item details DWS-01-05', async () => {
+  test('mini shopping cart displays correct item details DWS-01-06', async () => {
     //Arrange
     const itemTitle = await booksPage.getItemTitle(item);
     const itemActualPrice = await booksPage.getItemActualPrice(item);
