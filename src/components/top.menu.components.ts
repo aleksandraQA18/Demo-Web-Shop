@@ -16,4 +16,8 @@ export class TopMenuComponent {
     this.wishingList = this.page.locator('.ico-wishlist .cart-label');
     this.wishingListQty = this.page.locator('.ico-wishlist .cart-qty');
   }
+
+  async goToShoppingCart(): Promise<void> {
+    await this.shoppingCart.click();
+  }
 }
