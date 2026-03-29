@@ -1,4 +1,5 @@
 import { BasePage } from './base.page';
+import { ItemPage } from './item.page';
 import { Locator, Page } from '@playwright/test';
 
 export class CategoryPage extends BasePage {
@@ -21,11 +22,23 @@ export class CategoryPage extends BasePage {
     this.shoppingQty = this.shoppingCart.locator('.quantity span');
   }
 
-  async getItemWithAddToCart(): Promise<Locator> {
+  async getItemsWithAddToCart(): Promise<Locator> {
     const items = this.itemDetails.filter({
       has: this.page.locator('.product-box-add-to-cart-button'),
     });
-    return items.first();
+    return items;
+  }
+
+  async getRandomItemInStock(): Promise<Locator> {
+    const itemsInStock = await this.getItemsWithAddToCart();
+    const totalItems = await itemsInStock.count();
+    const randomIndex = Math.floor(Math.random() * totalItems);
+    return itemsInStock.nth(randomIndex);
+  }
+
+  async goToItemPage(item: Locator): Promise<ItemPage> {
+    await item.locator('a').click();
+    return new ItemPage(this.page);
   }
 
   async getItemTitle(item: Locator): Promise<string> {
