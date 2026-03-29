@@ -8,7 +8,7 @@ test.describe('User can add items to cart', () => {
   test.beforeEach(async ({ page }) => {
     booksPage = new BooksPage(page);
     await booksPage.goto();
-    item = await booksPage.getItemWithAddToCart();
+    item = await booksPage.getRandomItemInStock();
     await booksPage.clickAddToCart(item);
   });
 
