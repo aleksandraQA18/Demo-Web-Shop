@@ -1,6 +1,7 @@
-import { User } from '../models/user.model';
+import { USER_EMAIL, USER_PASSWORD } from '../global-setup';
+import { LoginUser } from '../models/user.model';
 
-export const user: User = {
-  email: process.env.EMAIL || '[NOT SET]',
-  password: process.env.PASSWORD || '[NOT SET]',
+export const user: LoginUser = {
+  email: USER_EMAIL,
+  password: USER_PASSWORD,
 };

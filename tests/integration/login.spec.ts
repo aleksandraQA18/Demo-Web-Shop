@@ -1,6 +1,6 @@
 import { HomePage } from '../../src/pages/home.page';
 import { LoginPage } from '../../src/pages/login.page';
-import { user } from '../../src/test-data/user.data.ts';
+import { user } from '../../src/test-data/user.data';
 import test, { expect } from '@playwright/test';
 
 test.describe('Verify login', () => {
