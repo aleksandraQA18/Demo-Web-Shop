@@ -13,7 +13,7 @@ test.describe('User can add items to cart', () => {
   });
 
   test(
-    'add book to cart from the list DWS-01-06',
+    'add book to cart from the list DWS-02-06',
     { tag: '@smoke' },
     async () => {
       //Arrange
@@ -30,7 +30,7 @@ test.describe('User can add items to cart', () => {
   );
 
   test(
-    'mini shopping cart displays correct item details DWS-01-06',
+    'mini shopping cart displays correct item details DWS-02-06',
     { tag: '@smoke' },
     async () => {
       //Arrange

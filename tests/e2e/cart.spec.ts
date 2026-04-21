@@ -20,7 +20,7 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await itemPage.clickAddToCartButton();
   });
 
-  test('add item from Books category', async () => {
+  test('add item from Books category DWS-04-01', async () => {
     //Arrange
     const expectedNotification =
       'The product has been added to your shopping cart';
@@ -34,7 +34,7 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await expect(booksPage.topMenu.shoppingCartQty).toHaveText(expectedCartQty);
   });
 
-  test('cart contains correct item', async ({ page }) => {
+  test('cart contains correct item DWS-04-01', async ({ page }) => {
     //Arrange
     const cartPage = new CartPage(page);
 
@@ -49,7 +49,7 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await expect(cartPage.productUnitPrice).toHaveText(price);
   });
 
-  test('edit item quantity in the cart', async ({ page }) => {
+  test('edit item quantity in the cart DWS-04-02', async ({ page }) => {
     //Arrange
     const cartPage = new CartPage(page);
     const expectedQty = '3';
@@ -64,7 +64,7 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await expect(cartPage.productSubtotal).toHaveText(String(subTotalPrice));
   });
 
-  test('delete item from the cart', async ({ page }) => {
+  test('delete item from the cart DWS-04-03', async ({ page }) => {
     //Arrange
     const cartPage = new CartPage(page);
     const expectedMessage = 'Your Shopping Cart is empty!';
