@@ -1,4 +1,3 @@
-import { TopMenuComponent } from '../components/top.menu.components';
 import { BasePage } from './base.page';
 import { Locator, Page } from '@playwright/test';
 
@@ -13,7 +12,6 @@ export class CartPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.topMenu = new TopMenuComponent(page);
     this.productName = this.page.locator('.product-name');
     this.productUnitPrice = this.page.locator('.product-unit-price');
     this.productSubtotal = this.page.locator('.product-subtotal');

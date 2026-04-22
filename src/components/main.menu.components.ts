@@ -18,4 +18,12 @@ export class MainMenuComponent {
       '//ul[@class="top-menu"]//a[@href="/desktops"]',
     );
   }
+
+  async goToBooksCategory(): Promise<void> {
+    await this.booksButton.click();
+  }
+
+  async goToComputersCategory(): Promise<void> {
+    await this.computersButton.click();
+  }
 }

@@ -10,6 +10,7 @@ export class CategoryPage extends BasePage {
   shoppingCartName: Locator;
   shoppingUnitPrice: Locator;
   shoppingQty: Locator;
+  shoppingCartNotification: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -20,6 +21,7 @@ export class CategoryPage extends BasePage {
     this.shoppingCartName = this.shoppingCart.locator('.name a');
     this.shoppingUnitPrice = this.shoppingCart.locator('.price span');
     this.shoppingQty = this.shoppingCart.locator('.quantity span');
+    this.shoppingCartNotification = this.notificationBar.locator('a');
   }
 
   async getItemsWithAddToCart(): Promise<Locator> {
