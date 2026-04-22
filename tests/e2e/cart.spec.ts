@@ -51,9 +51,9 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
 
   test('edit item quantity in the cart DWS-04-02', async ({ page }) => {
     //Arrange
-    const cartPage = new CartPage(page);
     const expectedQty = '3';
     const subTotalPrice = (Number(expectedQty) * parseFloat(price)).toFixed(2);
+    const cartPage = new CartPage(page);
 
     //Act
     await itemPage.topMenu.goToShoppingCart();
