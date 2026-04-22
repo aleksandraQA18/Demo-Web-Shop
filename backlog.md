@@ -35,9 +35,10 @@
 
 🔹 EPIC 5: Navigation DWS-05
 
-1. 📝 Navigation from the category page to the cart
-2. 📝 Navigate to the cart from top menu (shoppig cart)
-3. 📝 Navigate to the cart from notification bar
+1. ✅ DWS-05-01 Navigation from the from the books page to computers page
+2. ✅ DWS-05-02 Navigate to the cart from top menu (shoppig cart)
+3. ✅ DWS-05-03 Navigate to the cart from notification bar
+4. ✅ DWS-05-04 Navigate to the home page by clicking logo
 
 🔹 EPIC 6: Login & Registration DWS-06
 
