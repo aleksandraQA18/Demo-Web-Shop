@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Build your own cheap computer",
+    "price": 800.0,
+    "inStock": true,
+    "category": "Computers",
+    "url": "https://demowebshop.tricentis.com/build-your-cheap-computer"
+  },
+  {
+    "id": 2,
+    "title": "Build your own computer",
+    "price": 1200.0,
+    "inStock": true,
+    "category": "Computers",
+    "url": "https://demowebshop.tricentis.com/build-your-own-computer"
+  },
+  {
+    "id": 3,
+    "title": "Simple Computer",
+    "price": 500.0,
+    "inStock": true,
+    "category": "Computers",
+    "url": "https://demowebshop.tricentis.com/simple-computer"
+  },
+  {
+    "id": 4,
+    "title": "14.1-inch Laptop",
+    "price": 1590.0,
+    "inStock": true,
+    "category": "Computers",
+    "url": "https://demowebshop.tricentis.com/141-inch-laptop"
+  },
+  {
+    "id": 5,
+    "title": "Smartphone",
+    "price": 100.0,
+    "inStock": true,
+    "category": "Electronics",
+    "url": "https://demowebshop.tricentis.com/smartphone"
+  },
+  {
+    "id": 6,
+    "title": "Blue Jeans",
+    "price": 25.0,
+    "inStock": true,
+    "category": "Apparel & Shoes",
+    "url": "https://demowebshop.tricentis.com/blue-jeans"
+  },
+  {
+    "id": 7,
+    "title": "Casual Golf Belt",
+    "price": 19.0,
+    "inStock": true,
+    "category": "Apparel & Shoes",
+    "url": "https://demowebshop.tricentis.com/casual-golf-belt"
+  },
+  {
+    "id": 8,
+    "title": "Computing and Internet",
+    "price": 10.0,
+    "inStock": true,
+    "category": "Books",
+    "url": "https://demowebshop.tricentis.com/computing-and-internet"
+  },
+  {
+    "id": 9,
+    "title": "Black & White Diamond Heart",
+    "price": 130.0,
+    "inStock": false,
+    "category": "Jewelry",
+    "url": "https://demowebshop.tricentis.com/black-white-diamond-heart"
+  },
+  {
+    "id": 10,
+    "title": "Fiction",
+    "price": 24.0,
+    "inStock": true,
+    "category": "Books",
+    "url": "https://demowebshop.tricentis.com/fiction"
+  }
+]
