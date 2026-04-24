@@ -11,6 +11,7 @@ export class CategoryPage extends BasePage {
   shoppingUnitPrice: Locator;
   shoppingQty: Locator;
   shoppingCartNotification: Locator;
+  addToCartButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -22,6 +23,7 @@ export class CategoryPage extends BasePage {
     this.shoppingUnitPrice = this.shoppingCart.locator('.price span');
     this.shoppingQty = this.shoppingCart.locator('.quantity span');
     this.shoppingCartNotification = this.notificationBar.locator('a');
+    this.addToCartButton = this.page.locator('.product-box-add-to-cart-button');
   }
 
   async getItemsWithAddToCart(): Promise<Locator> {
@@ -29,6 +31,10 @@ export class CategoryPage extends BasePage {
       has: this.page.locator('.product-box-add-to-cart-button'),
     });
     return items;
+  }
+
+  async getItemByTitle(title: string): Promise<Locator> {
+    return this.itemDetails.filter({ hasText: title });
   }
 
   async getRandomItemInStock(): Promise<Locator> {

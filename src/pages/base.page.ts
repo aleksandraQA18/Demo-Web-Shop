@@ -12,8 +12,8 @@ export class BasePage {
     this.mainMenu = new MainMenuComponent(page);
   }
 
-  async goto(): Promise<void> {
-    await this.page.goto(this.url);
+  async goto(url?: string): Promise<void> {
+    await this.page.goto(url ?? this.url);
   }
 
   async getTitle(): Promise<string> {
