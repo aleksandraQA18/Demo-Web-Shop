@@ -1,47 +1,42 @@
-import { BooksPage } from '../../src/pages/books.page';
-import { CartPage } from '../../src/pages/cart.page';
-import { ComputersPage } from '../../src/pages/computers.page';
+import { CategoryPage } from '../../src/pages/category.page';
 import { HomePage } from '../../src/pages/home.page';
+import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('User can navigate between pages', () => {
-  let booksPage: BooksPage;
+  let homePage: HomePage;
+  let categoryPage: CategoryPage;
 
   test.beforeEach(async ({ page }) => {
-    booksPage = new BooksPage(page);
-
-    await booksPage.goto();
+    homePage = new HomePage(page);
+    await homePage.goto();
+    categoryPage = new CategoryPage(page);
   });
 
-  test('User can navigate from the books page to computers page DWS-05-01', async ({
-    page,
-  }) => {
+  test('User can navigate to the books page DWS-05-01', async () => {
     //Arrange
-    const computersPageTitle = 'Computers';
-    const expectedUrl = 'computers';
-    const computersPage = new ComputersPage(page);
+    const computersPageTitle = 'Books';
+    const expectedUrl = 'books';
 
     //Act
-    await booksPage.mainMenu.goToComputersCategory();
+    const booksPage = await categoryPage.goToBooksCategory();
 
     //Assert
-    const title = await computersPage.getTitle();
+    const title = await booksPage.getTitle();
     expect(title).toContain(computersPageTitle);
 
-    const url = await computersPage.getUrl();
+    const url = await booksPage.getUrl();
     expect(url).toContain(expectedUrl);
   });
 
-  test('User can navigate from the category page to the cart DWS-05-02', async ({
-    page,
-  }) => {
+  test('User can navigate to the cart from the category page DWS-05-02', async () => {
     //Arrange
     const cartPageTitle = 'Shopping Cart';
     const expectedUrl = 'cart';
-    const cartPage = new CartPage(page);
 
     //Act
-    await booksPage.topMenu.goToShoppingCart();
+    const computersPage = await categoryPage.goToComputersCategory();
+    const cartPage = await computersPage.goToShoppingCart();
 
     //Assert
     const title = await cartPage.getTitle();
@@ -51,36 +46,32 @@ test.describe('User can navigate between pages', () => {
     expect(url).toContain(expectedUrl);
   });
 
-  test('User can navigate to the cart from notification bar DWS-05-03', async ({
-    page,
-  }) => {
+  test('User can navigate to the cart from notification bar DWS-05-03', async () => {
     //Arrange
     const cartPageTitle = 'Shopping Cart';
     const expectedUrl = 'cart';
-    const cartPage = new CartPage(page);
+    const bookData = products[7];
 
     //Act
-    const item = await booksPage.getRandomItemInStock();
-    await booksPage.clickAddToCart(item);
-    await booksPage.shoppingCartNotification.click();
+    await categoryPage.goToBooksCategory();
+    const item = await categoryPage.getItemByTitle(bookData.title);
+    await categoryPage.clickAddToCart(item);
+    await categoryPage.shoppingCartNotification.click();
 
     //Assert
-    const title = await cartPage.getTitle();
+    const title = await categoryPage.getTitle();
     expect(title).toContain(cartPageTitle);
 
-    const url = await cartPage.getUrl();
+    const url = await categoryPage.getUrl();
     expect(url).toContain(expectedUrl);
   });
 
-  test('User can navigate to the home page by clicking logo DWS-05-04', async ({
-    page,
-  }) => {
+  test('User can navigate to the home page by clicking logo DWS-05-04', async () => {
     //Arrange
     const homePageTitle = 'Demo Web Shop';
-    const homePage = new HomePage(page);
 
     //Act
-    await booksPage.mainMenu.homePageLogo.click();
+    await categoryPage.clickHomePageLogo();
 
     //Assert
     const title = await homePage.getTitle();

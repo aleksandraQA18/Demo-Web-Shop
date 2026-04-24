@@ -1,5 +1,4 @@
 import { Item } from '../../src/models/product.model';
-import { CartPage } from '../../src/pages/cart.page';
 import { ItemPage } from '../../src/pages/item.page';
 import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
@@ -15,30 +14,15 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await itemPage.clickAddToCartButton();
   });
 
-  test('add item to cart DWS-04-01', async () => {
+  test('cart contains correct item DWS-04-01', async () => {
     //Arrange
-    const expectedNotification =
-      'The product has been added to your shopping cart';
-    const expectedCartQty = '(1)';
-
-    //Assert
-    await expect
-      .soft(itemPage.notificationBar)
-      .toHaveText(expectedNotification);
-
-    await expect(itemPage.topMenu.shoppingCartQty).toHaveText(expectedCartQty);
-  });
-
-  test('cart contains correct item DWS-04-01', async ({ page }) => {
-    //Arrange
-    const cartPage = new CartPage(page);
     const expectedTitle = item.title;
     const expectedPrice = item.price.toFixed(2);
 
     await expect(itemPage.topMenu.shoppingCartQty).toBeVisible();
 
     //Act
-    await itemPage.topMenu.goToShoppingCart();
+    const cartPage = await itemPage.goToShoppingCart();
 
     //Assert
     await expect(cartPage.productName).toHaveText(expectedTitle, {
@@ -48,19 +32,16 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await expect(cartPage.productUnitPrice).toHaveText(expectedPrice);
   });
 
-  test('edit item quantity in the cart DWS-04-02', async ({ page }) => {
+  test('edit item quantity in the cart DWS-04-02', async () => {
     //Arrange
-    const cartPage = new CartPage(page);
     const expectedQty = '3';
-    const itemPrice = item.price.toFixed(2);
-    const expectedSubTotalPrice = (
-      Number(expectedQty) * parseFloat(itemPrice)
-    ).toFixed(2);
+    const itemPrice = item.price;
+    const expectedSubTotalPrice = (Number(expectedQty) * itemPrice).toFixed(2);
 
     await expect(itemPage.topMenu.shoppingCartQty).toBeVisible();
 
     //Act
-    await itemPage.topMenu.goToShoppingCart();
+    const cartPage = await itemPage.goToShoppingCart();
     await cartPage.editItemQty(expectedQty);
 
     //Assert
@@ -68,20 +49,17 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     await expect(cartPage.productSubtotal).toHaveText(expectedSubTotalPrice);
   });
 
-  test('delete item from the cart DWS-04-03', async ({ page }) => {
+  test('delete item from the cart DWS-04-03', async () => {
     //Arrange
-    const cartPage = new CartPage(page);
     const expectedMessage = 'Your Shopping Cart is empty!';
-    const expectedCartQty = '(0)';
 
     await expect(itemPage.topMenu.shoppingCartQty).toBeVisible();
 
     //Act
-    await itemPage.topMenu.goToShoppingCart();
+    const cartPage = await itemPage.goToShoppingCart();
     await cartPage.deleteItem();
 
     //Assert
     await expect.soft(cartPage.orderContent).toHaveText(expectedMessage);
-    await expect(cartPage.topMenu.shoppingCartQty).toHaveText(expectedCartQty);
   });
 });

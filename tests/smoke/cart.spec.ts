@@ -1,13 +1,13 @@
-import { BooksPage } from '../../src/pages/books.page';
+import { CategoryPage } from '../../src/pages/category.page';
 import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('User can add items to cart', () => {
-  let booksPage: BooksPage;
+  let categoryPage: CategoryPage;
 
   test.beforeEach(async ({ page }) => {
-    booksPage = new BooksPage(page);
-    await booksPage.goto();
+    categoryPage = new CategoryPage(page);
+    await categoryPage.goto('books');
   });
 
   test(
@@ -15,20 +15,20 @@ test.describe('User can add items to cart', () => {
     { tag: '@smoke' },
     async () => {
       //Arrange
-      const bookItem = products[7];
-      const bookItemLocator = await booksPage.getItemByTitle(bookItem.title);
+      const bookData = products[7];
+      const bookItem = await categoryPage.getItemByTitle(bookData.title);
       const expectedNotification =
         'The product has been added to your shopping cart';
 
       //Act
-      await booksPage.clickAddToCart(bookItemLocator);
+      await categoryPage.clickAddToCart(bookItem);
 
       //Assert
       await expect
-        .soft(booksPage.notificationBar)
+        .soft(categoryPage.notificationBar)
         .toHaveText(expectedNotification);
 
-      await expect(booksPage.cartItemQty).toHaveText('(1)');
+      await expect(categoryPage.cartItemQty).toHaveText('(1)');
     },
   );
 
@@ -37,18 +37,18 @@ test.describe('User can add items to cart', () => {
     { tag: '@smoke' },
     async () => {
       //Arrange
-      const bookItem = products[7];
-      const bookItemLocator = await booksPage.getItemByTitle(bookItem.title);
-      const itemTitle = bookItem.title;
-      const itemActualPrice = bookItem.price.toFixed(2);
+      const bookData = products[7];
+      const bookItem = await categoryPage.getItemByTitle(bookData.title);
+      const itemTitle = bookData.title;
+      const itemActualPrice = bookData.price.toFixed(2);
 
       //Act
-      await booksPage.clickAddToCart(bookItemLocator);
+      await categoryPage.clickAddToCart(bookItem);
 
       //Assert
-      await expect(booksPage.shoppingCartName).toHaveText(itemTitle);
-      await expect(booksPage.shoppingUnitPrice).toHaveText(itemActualPrice);
-      await expect(booksPage.shoppingQty).toHaveText('1');
+      await expect(categoryPage.shoppingCartName).toHaveText(itemTitle);
+      await expect(categoryPage.shoppingUnitPrice).toHaveText(itemActualPrice);
+      await expect(categoryPage.shoppingQty).toHaveText('1');
     },
   );
 
@@ -59,9 +59,9 @@ test.describe('User can add items to cart', () => {
       //Arrange
       //Arrange
       const bookItem = products[10];
-      const bookItemLocator = await booksPage.getItemByTitle(bookItem.title);
+      const bookItemLocator = await categoryPage.getItemByTitle(bookItem.title);
       const addTocart = bookItemLocator.filter({
-        has: booksPage.addToCartButton,
+        has: categoryPage.addToCartButton,
       });
 
       //Assert
