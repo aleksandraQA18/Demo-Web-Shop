@@ -16,7 +16,7 @@
 1. 📝 DWS-02-01 Display category page
 2. 📝 DWS-02-02 Products list is visible
 3. 📝 DWS-02-03 Each product has name, price, and rating
-4. 📝 DWS-02-04 Product out of stock does not have "Add to cart" button
+4. ✅ DWS-02-04 Product out of stock does not have "Add to cart" button
 5. 📝 DWS-02-05 Clicking on a product opens the details page
 6. ✅ DWS-02-06 User can click add to cart on the list
 
