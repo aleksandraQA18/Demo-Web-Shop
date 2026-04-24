@@ -1,4 +1,6 @@
 import { BasePage } from './base.page';
+import { CartPage } from './cart.page';
+import { HomePage } from './home.page';
 import { ItemPage } from './item.page';
 import { Locator, Page } from '@playwright/test';
 
@@ -26,22 +28,12 @@ export class CategoryPage extends BasePage {
     this.addToCartButton = this.page.locator('.product-box-add-to-cart-button');
   }
 
-  async getItemsWithAddToCart(): Promise<Locator> {
-    const items = this.itemDetails.filter({
-      has: this.page.locator('.product-box-add-to-cart-button'),
-    });
-    return items;
-  }
-
   async getItemByTitle(title: string): Promise<Locator> {
     return this.itemDetails.filter({ hasText: title });
   }
 
-  async getRandomItemInStock(): Promise<Locator> {
-    const itemsInStock = await this.getItemsWithAddToCart();
-    const totalItems = await itemsInStock.count();
-    const randomIndex = Math.floor(Math.random() * totalItems);
-    return itemsInStock.nth(randomIndex);
+  async clickAddToCart(item: Locator): Promise<void> {
+    await item.locator('.product-box-add-to-cart-button').click();
   }
 
   async goToItemPage(item: Locator): Promise<ItemPage> {
@@ -49,15 +41,23 @@ export class CategoryPage extends BasePage {
     return new ItemPage(this.page);
   }
 
-  async getItemTitle(item: Locator): Promise<string> {
-    return item.locator('.product-title').innerText();
+  async goToShoppingCart(): Promise<CartPage> {
+    await this.topMenu.shoppingCart.click();
+    return new CartPage(this.page);
   }
 
-  async getItemActualPrice(item: Locator): Promise<string> {
-    return item.locator('.price.actual-price').innerText();
+  async goToBooksCategory(): Promise<CategoryPage> {
+    await this.mainMenu.booksButton.click();
+    return new CategoryPage(this.page);
   }
 
-  async clickAddToCart(item: Locator): Promise<void> {
-    await item.locator('.product-box-add-to-cart-button').click();
+  async goToComputersCategory(): Promise<CategoryPage> {
+    await this.mainMenu.computersButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async clickHomePageLogo(): Promise<HomePage> {
+    await this.mainMenu.homePageLogo.click();
+    return this;
   }
 }

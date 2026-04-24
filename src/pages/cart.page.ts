@@ -10,7 +10,7 @@ export class CartPage extends BasePage {
   itemCheckbox: Locator;
   orderContent: Locator;
 
-  constructor(page: Page) {
+  constructor(protected page: Page) {
     super(page);
     this.productName = this.page.locator('.product-name');
     this.productUnitPrice = this.page.locator('.product-unit-price');

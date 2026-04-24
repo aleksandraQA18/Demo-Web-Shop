@@ -1,4 +1,5 @@
 import { BasePage } from './base.page';
+import { CartPage } from './cart.page';
 import { Locator, Page } from '@playwright/test';
 
 export class ItemPage extends BasePage {
@@ -13,5 +14,10 @@ export class ItemPage extends BasePage {
 
   async clickAddToCartButton(): Promise<void> {
     await this.addToCartButton.click();
+  }
+
+  async goToShoppingCart(): Promise<CartPage> {
+    await this.topMenu.shoppingCart.click();
+    return new CartPage(this.page);
   }
 }
