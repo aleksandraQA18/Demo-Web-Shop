@@ -4,26 +4,10 @@ export class MainMenuComponent {
   homePageLogo: Locator;
   booksButton: Locator;
   computersButton: Locator;
-  desktopsButton: Locator;
 
   constructor(private page: Page) {
-    this.booksButton = this.page.locator(
-      '//ul[@class="top-menu"]//a[@href="/books"]',
-    );
-    this.computersButton = this.page.locator(
-      '//ul[@class="top-menu"]//a[@href="/computers"]',
-    );
     this.homePageLogo = this.page.locator('.header-logo');
-    this.desktopsButton = this.page.locator(
-      '//ul[@class="top-menu"]//a[@href="/desktops"]',
-    );
-  }
-
-  async goToBooksCategory(): Promise<void> {
-    await this.booksButton.click();
-  }
-
-  async goToComputersCategory(): Promise<void> {
-    await this.computersButton.click();
+    this.booksButton = this.page.locator('.top-menu a[href="/books"]');
+    this.computersButton = this.page.locator('.top-menu a[href="/computers"]');
   }
 }
