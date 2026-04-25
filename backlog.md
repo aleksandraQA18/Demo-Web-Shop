@@ -1,50 +1,85 @@
 1️⃣ BACKLOG – PROJECT DEMO WEB SHOP
 
 📝 TO DO
-🟡 IN PROGRESS
 ✅ DONE
 
-🔹 EPIC 1: Home Page DWS-01
+🔹 EPIC 1: Core Navigation & Home
 
-1. ✅ DWS-01-01 Home page title is 'Demo Web Shop'
-2. ✅ DWS-01-02 Home page button navigates to Home Page
-3. ✅ DWS-01-03 User can access Books Category from main menu
-4. ✅ DWS-01-04 User can access Computers Category from main menu
+✅ DWS-101 Home page loads successfully [SMOKE]
+📝 DWS-102 User can navigate to options from top menu [SMOKE]
+📝 DWS-102 User can navigate to categories from header category menu [SMOKE]
+✅ DWS-103 User can navigate to cart from header [SMOKE]
+✅ DWS-104 Clicking logo redirects to home page [SMOKE]
+📝 DWS-105 Navigation preserves application state (cart count remains consistent) [REGRESSION]
 
-🔹 EPIC 2: Category Page DWS-02
+🔹 EPIC 2: Category & Product Listing
 
-1. 📝 DWS-02-01 Display category page
-2. 📝 DWS-02-02 Products list is visible
-3. 📝 DWS-02-03 Each product has name, price, and rating
-4. ✅ DWS-02-04 Product out of stock does not have "Add to cart" button
-5. 📝 DWS-02-05 Clicking on a product opens the details page
-6. ✅ DWS-02-06 User can click add to cart on the list
+📝 DWS-201 Category page displays products list with at least one item [SMOKE]
+📝 DWS-202 Each product has consistent data (name, price, rating displayed) [REGRESSION]
+📝 DWS-203 Product is clickable and opens product details page [SMOKE]
+✅ DWS-204 Out-of-stock products cannot be added to cart [REGRESSION]
+✅ DWS-205 User can add product to cart directly from listing [SMOKE]
+📝 DWS-206 Pagination / sorting does not break product visibility [REGRESSION]
 
-🔹 EPIC 3: Product Page DWS-03
+🔹 EPIC 3: Product Details
 
-1. 📝 Display of the product name
-2. 📝 Display of the price
-3. 📝 The “Add to cart” button is active
-4. 📝 Clicking “Add to cart” adds the product to the cart
+📝 DWS-301 Product details page displays correct data [SMOKE]
+📝 DWS-302 Product price is consistent with listing page [REGRESSION]
+📝 DWS-303 User can add available product to cart from product page [SMOKE]
+📝 DWS-304 Adding product updates cart counter correctly [SMOKE]
+📝 DWS-305 Product availability affects "Add to cart" behavior [REGRESSION]
 
-🔹 EPIC 4: Cart DWS-04
+🔹 EPIC 4: Cart Management
 
-1. ✅ DWS-04-01 The cart contains the added product
-2. ✅ DWS-04-02 Ability to change the quantity
-3. ✅ DWS-04-03 Removal of the product from the cart
+✅ DWS-401 Added product appears in cart with correct details [SMOKE]
+📝 DWS-402 Cart reflects correct price and quantity [REGRESSION]
+✅ DWS-403 User can change product quantity [SMOKE]
+📝 DWS-404 Updating quantity recalculates total price [REGRESSION]
+✅ DWS-405 User can remove product from cart [SMOKE]
+📝 DWS-406 Empty cart state is handled correctly [REGRESSION]
+📝 DWS-407 Cart data persists after page refresh [REGRESSION]
 
-🔹 EPIC 5: Navigation DWS-05
+🔹 EPIC 5: Checkout (🔥 CRITICAL)
 
-1. ✅ DWS-05-01 Navigation from the from the books page to computers page
-2. ✅ DWS-05-02 Navigate to the cart from top menu (shoppig cart)
-3. ✅ DWS-05-03 Navigate to the cart from notification bar
-4. ✅ DWS-05-04 Navigate to the home page by clicking logo
+📝 DWS-501 User can proceed to checkout from cart [SMOKE][E2E]
+📝 DWS-502 Guest user can complete checkout [E2E]
+📝 DWS-503 Logged-in user can complete checkout [E2E]
+📝 DWS-504 User must provide valid billing details [REGRESSION]
+📝 DWS-505 Invalid form data shows validation errors [REGRESSION]
+📝 DWS-506 User can select shipping method [REGRESSION]
+📝 DWS-507 User can select payment method [REGRESSION]
+📝 DWS-508 Order confirmation is displayed after successful checkout [SMOKE][E2E]
+📝 DWS-509 Order summary contains correct products and pricing [E2E]
 
-🔹 EPIC 6: Login & Registration DWS-06
+🔹 EPIC 6: Authentication
 
-1. ✅ DWS-06-01 Successful user registration
-2. ✅ DWS-06-02 Display error message when registration email is invalid
-3. ✅ DWS-06-03 Display error message when registration password is invalid
-4. ✅ DWS-06-04 User can login with valid data
-5. ✅ DWS-06-05 Display error message when login email is invalid
-6. ✅ DWS-06-06 Display error message when login password is invalid
+✅ DWS-601 Successful user registration [SMOKE]
+✅ DWS-602 Error message for invalid email during registration [REGRESSION]
+✅ DWS-603 Error message for weak password [REGRESSION]
+📝 DWS-604 Duplicate email registration is blocked [REGRESSION]
+✅ DWS-605 User can login with valid credentials [SMOKE]
+✅ DWS-606 Error message for invalid login credentials [REGRESSION]
+📝 DWS-607 User session persists after login [REGRESSION]
+📝 DWS-608 User can logout successfully [SMOKE]
+
+🔹 EPIC 7: Data Consistency
+
+📝 DWS-701 Product price is consistent across all pages [REGRESSION][E2E]
+📝 DWS-702 Cart total equals sum of product prices × quantity [REGRESSION]
+📝 DWS-703 Cart icon counter matches actual number of items [SMOKE]
+📝 DWS-704 Order summary matches cart data [REGRESSION][E2E]
+
+🔹 EPIC 8: Negative & Edge Cases
+
+📝 DWS-801 User cannot proceed to checkout with empty cart [REGRESSION]
+📝 DWS-802 User cannot add invalid quantity [REGRESSION]
+📝 DWS-803 System handles page refresh during cart usage [REGRESSION]
+📝 DWS-804 Browser navigation does not break flow [REGRESSION]
+📝 DWS-805 Special characters in forms are handled correctly [REGRESSION]
+📝 DWS-806 Very long input values are validated [REGRESSION]
+
+🔹 EPIC 9: Basic Non-Functional
+
+📝 DWS-901 Key pages load within acceptable time [REGRESSION]
+📝 DWS-902 No critical JS errors in console [REGRESSION]
+📝 DWS-903 Basic accessibility works (focus, labels, interactions) [REGRESSION]
