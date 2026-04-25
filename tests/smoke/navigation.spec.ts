@@ -3,7 +3,7 @@ import { HomePage } from '../../src/pages/home.page';
 import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
 
-test.describe('User can navigate between pages', () => {
+test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
   let homePage: HomePage;
   let categoryPage: CategoryPage;
 
@@ -11,6 +11,29 @@ test.describe('User can navigate between pages', () => {
     homePage = new HomePage(page);
     await homePage.goto();
     categoryPage = new CategoryPage(page);
+  });
+
+  test('DWS-101 Home page loads successfully', async () => {
+    //Arrange
+    const homePageTitle = 'Demo Web Shop';
+
+    //Assert
+    const title = await homePage.getTitle();
+    expect(title).toContain(homePageTitle);
+
+    await expect(homePage.homePageLogo).toBeVisible();
+  });
+
+  test('User can navigate to the home page by clicking logo DWS-05-04', async () => {
+    //Arrange
+    const homePageTitle = 'Demo Web Shop';
+
+    //Act
+    await categoryPage.clickHomePageLogo();
+
+    //Assert
+    const title = await homePage.getTitle();
+    expect(title).toContain(homePageTitle);
   });
 
   test('User can navigate to the books page DWS-05-01', async () => {
@@ -64,17 +87,5 @@ test.describe('User can navigate between pages', () => {
 
     const url = await categoryPage.getUrl();
     expect(url).toContain(expectedUrl);
-  });
-
-  test('User can navigate to the home page by clicking logo DWS-05-04', async () => {
-    //Arrange
-    const homePageTitle = 'Demo Web Shop';
-
-    //Act
-    await categoryPage.clickHomePageLogo();
-
-    //Assert
-    const title = await homePage.getTitle();
-    expect(title).toContain(homePageTitle);
   });
 });
