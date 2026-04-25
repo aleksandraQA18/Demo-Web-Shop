@@ -6,11 +6,11 @@
 🔹 EPIC 1: Core Navigation & Home
 
 ✅ DWS-101 Home page loads successfully [SMOKE]
-📝 DWS-102 User can navigate to options from top menu [SMOKE]
-📝 DWS-102 User can navigate to categories from header category menu [SMOKE]
-✅ DWS-103 User can navigate to cart from header [SMOKE]
-✅ DWS-104 Clicking logo redirects to home page [SMOKE]
-📝 DWS-105 Navigation preserves application state (cart count remains consistent) [REGRESSION]
+✅ DWS-102 User can access register, log in, cart and wishlist from top menu [SMOKE]
+✅ DWS-103 User can navigate to categories from header category menu [SMOKE]
+✅ DWS-104 User can navigate to cart from notification bar [SMOKE]
+✅ DWS-105 Clicking logo redirects to home page [SMOKE]
+✅ DWS-106 Navigation preserves application state (cart count remains consistent) [SMOKE] [REGRESSION]
 
 🔹 EPIC 2: Category & Product Listing
 

@@ -1,6 +1,5 @@
 import { BasePage } from './base.page';
 import { CartPage } from './cart.page';
-import { HomePage } from './home.page';
 import { ItemPage } from './item.page';
 import { Locator, Page } from '@playwright/test';
 
@@ -28,12 +27,22 @@ export class CategoryPage extends BasePage {
     this.addToCartButton = this.page.locator('.product-box-add-to-cart-button');
   }
 
-  async getItemByTitle(title: string): Promise<Locator> {
+  private async getItemByTitle(title: string): Promise<Locator> {
     return this.itemDetails.filter({ hasText: title });
   }
 
-  async clickAddToCart(item: Locator): Promise<void> {
+  // async clickAddToCart(item: Locator): Promise<void> {
+  //   await item.locator('.product-box-add-to-cart-button').click();
+  // }
+
+  async clickAddToCart(title: string): Promise<void> {
+    const item = await this.getItemByTitle(title);
     await item.locator('.product-box-add-to-cart-button').click();
+  }
+
+  async isProductsGridLoaded(): Promise<boolean> {
+    const gridLocator = this.page.locator('.product-grid, .sub-category-grid');
+    return (await gridLocator.count()) > 0;
   }
 
   async goToItemPage(item: Locator): Promise<ItemPage> {
@@ -42,7 +51,7 @@ export class CategoryPage extends BasePage {
   }
 
   async goToShoppingCart(): Promise<CartPage> {
-    await this.topMenu.shoppingCart.click();
+    await this.topMenu.shoppingCartLink.click();
     return new CartPage(this.page);
   }
 
@@ -54,10 +63,5 @@ export class CategoryPage extends BasePage {
   async goToComputersCategory(): Promise<CategoryPage> {
     await this.mainMenu.computersButton.click();
     return new CategoryPage(this.page);
-  }
-
-  async clickHomePageLogo(): Promise<HomePage> {
-    await this.mainMenu.homePageLogo.click();
-    return this;
   }
 }

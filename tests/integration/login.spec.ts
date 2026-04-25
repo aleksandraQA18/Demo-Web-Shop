@@ -19,7 +19,7 @@ test.describe('Verify login', () => {
     await loginPage.login(user);
 
     //Assert
-    await expect(homePage.topMenu.userAccount).toHaveText(user.email);
+    await expect(homePage.topMenu.userAccountLink).toHaveText(user.email);
   });
 
   test('user cannot login with invalid email DWS-06-05', async () => {

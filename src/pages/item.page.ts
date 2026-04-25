@@ -17,7 +17,7 @@ export class ItemPage extends BasePage {
   }
 
   async goToShoppingCart(): Promise<CartPage> {
-    await this.topMenu.shoppingCart.click();
+    await this.topMenu.shoppingCartLink.click();
     return new CartPage(this.page);
   }
 }
