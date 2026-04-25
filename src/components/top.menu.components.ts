@@ -1,19 +1,40 @@
 import { Locator, Page } from '@playwright/test';
 
+export type TopMenuLink = 'register' | 'login' | 'cart' | 'wishlist';
+
 export class TopMenuComponent {
-  userAccount: Locator;
-  logout: Locator;
-  shoppingCart: Locator;
+  registerLink: Locator;
+  loginLink: Locator;
+  userAccountLink: Locator;
+  logoutLink: Locator;
+  shoppingCartLink: Locator;
   shoppingCartQty: Locator;
-  wishingList: Locator;
-  wishingListQty: Locator;
+  wishingListLink: Locator;
 
   constructor(private page: Page) {
-    this.userAccount = this.page.locator('.header-links .account');
-    this.logout = this.page.locator('.ico-logout');
-    this.shoppingCart = this.page.locator('.ico-cart .cart-label');
+    this.registerLink = this.page.locator('.ico-register');
+    this.loginLink = this.page.locator('.ico-login');
+    this.userAccountLink = this.page.locator('.header-links .account');
+    this.logoutLink = this.page.locator('.ico-logout');
+    this.shoppingCartLink = this.page.locator('.ico-cart .cart-label');
     this.shoppingCartQty = this.page.locator('.ico-cart .cart-qty');
-    this.wishingList = this.page.locator('.ico-wishlist .cart-label');
-    this.wishingListQty = this.page.locator('.ico-wishlist .cart-qty');
+    this.wishingListLink = this.page.locator('.ico-wishlist .cart-label');
+  }
+
+  async clickTopMenuLink(link: TopMenuLink): Promise<void> {
+    switch (link) {
+      case 'register':
+        await this.registerLink.click();
+        break;
+      case 'login':
+        await this.loginLink.click();
+        break;
+      case 'cart':
+        await this.shoppingCartLink.click();
+        break;
+      case 'wishlist':
+        await this.wishingListLink.click();
+        break;
+    }
   }
 }

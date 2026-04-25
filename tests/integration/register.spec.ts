@@ -26,7 +26,7 @@ test.describe('Verify register', () => {
     await expect(registerResultPage.registerCompletedMessage).toHaveText(
       expectedMessage,
     );
-    await expect(registerResultPage.topMenu.userAccount).toHaveText(
+    await expect(registerResultPage.topMenu.userAccountLink).toHaveText(
       registerUserData.email,
     );
   });
