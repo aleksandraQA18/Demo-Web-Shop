@@ -64,11 +64,13 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
     categoryPage = new CategoryPage(page);
     const expectedTitle = 'Shopping Cart';
     const expectedUrl = 'cart';
-    const bookData = products[7];
+    const bookProduct = products.find(
+      (p) => p.categoryUrl === 'books' && p.inStock,
+    );
 
     //Act
     await homePage.mainMenu.clickMainMenuCategory('books');
-    await categoryPage.clickAddToCart(bookData.title);
+    await categoryPage.clickAddToCart(bookProduct!.title);
     await categoryPage.shoppingCartNotification.click();
 
     //Assert
@@ -101,11 +103,13 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
       //Arrange
       const expectedQty = '(1)';
       categoryPage = new CategoryPage(page);
-      const bookData = products[7];
+      const bookProduct = products.find(
+        (p) => p.categoryUrl === 'books' && p.inStock,
+      );
 
       //Act
       await homePage.mainMenu.clickMainMenuCategory('books');
-      await categoryPage.clickAddToCart(bookData.title);
+      await categoryPage.clickAddToCart(bookProduct!.title);
 
       //Assert
       await expect(homePage.topMenu.shoppingCartQty).toHaveText(expectedQty);

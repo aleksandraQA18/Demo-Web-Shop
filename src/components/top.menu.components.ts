@@ -10,6 +10,10 @@ export class TopMenuComponent {
   shoppingCartLink: Locator;
   shoppingCartQty: Locator;
   wishingListLink: Locator;
+  miniShoppingCart: Locator;
+  miniCartProductName: Locator;
+  miniCartProductPrice: Locator;
+  miniCartProductQty: Locator;
 
   constructor(private page: Page) {
     this.registerLink = this.page.locator('.ico-register');
@@ -19,6 +23,10 @@ export class TopMenuComponent {
     this.shoppingCartLink = this.page.locator('.ico-cart .cart-label');
     this.shoppingCartQty = this.page.locator('.ico-cart .cart-qty');
     this.wishingListLink = this.page.locator('.ico-wishlist .cart-label');
+    this.miniShoppingCart = this.page.locator('.mini-shopping-cart');
+    this.miniCartProductName = this.miniShoppingCart.locator('.name');
+    this.miniCartProductPrice = this.miniShoppingCart.locator('.price');
+    this.miniCartProductQty = this.miniShoppingCart.locator('.quantity');
   }
 
   async clickTopMenuLink(link: TopMenuLink): Promise<void> {

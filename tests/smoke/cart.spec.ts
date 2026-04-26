@@ -2,70 +2,165 @@ import { CategoryPage } from '../../src/pages/category.page';
 import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
 
-test.describe('User can add items to cart', () => {
+test.describe('Category & Product Listing', () => {
   let categoryPage: CategoryPage;
 
   test.beforeEach(async ({ page }) => {
     categoryPage = new CategoryPage(page);
-    await categoryPage.goto('books');
   });
 
+  for (const product of products) {
+    test(
+      `DWS-201 Should display correct details for product ${product.title}`,
+      { tag: '@regression' },
+      async () => {
+        // Arrange
+        const expectedPrice = product.price.toFixed(2);
+
+        // Act
+        await categoryPage.goto(product.categoryUrl);
+        const itemDetails = await categoryPage.getItemDetails(product.title);
+
+        // Assert
+        expect(itemDetails.title).toEqual(product.title);
+        expect(itemDetails.price).toEqual(expectedPrice);
+      },
+    );
+  }
+
   test(
-    'add book to cart from the list DWS-02-06',
+    'DWS-202 Product is clickable and opens product details page',
     { tag: '@smoke' },
     async () => {
-      //Arrange
-      const bookData = products[7];
-      const bookItem = await categoryPage.getItemByTitle(bookData.title);
+      // Arrange
+      const bookProduct = products.find((p) => p.categoryUrl === 'books');
+      expect(bookProduct).toBeDefined();
+
+      // Act
+      await categoryPage.goto(bookProduct!.categoryUrl);
+      const itemPage = await categoryPage.clickItemPicture(bookProduct!.title);
+
+      // Assert
+      const url = await itemPage.getUrl();
+      expect(url).toContain(bookProduct!.url);
+      await expect(itemPage.productName).toHaveText(bookProduct!.title);
+    },
+  );
+
+  test(
+    'DWS-203 Out-of-stock product cannot be added to cart',
+    { tag: '@smoke' },
+    async () => {
+      // Arrange
+      const productOutOfStock = products.find((p) => !p.inStock);
+      expect(productOutOfStock).toBeDefined();
+
+      // Act
+      await categoryPage.goto(productOutOfStock!.categoryUrl);
+      const item = await categoryPage.getItemByTitle(productOutOfStock!.title);
+
+      // Assert
+      await expect(item.locator(categoryPage.addToCartButton)).toBeHidden();
+    },
+  );
+
+  test(
+    'DWS-204 User can add product to cart directly from listing',
+    { tag: '@smoke' },
+    async () => {
+      // Arrange
+      const bookProduct = products.find(
+        (p) => p.categoryUrl === 'books' && p.inStock,
+      );
+      expect(bookProduct).toBeDefined();
       const expectedNotification =
         'The product has been added to your shopping cart';
 
-      //Act
-      await categoryPage.clickAddToCart(bookItem);
+      // Act
+      await categoryPage.goto(bookProduct!.categoryUrl);
+      await categoryPage.clickAddToCart(bookProduct!.title);
 
-      //Assert
-      await expect
-        .soft(categoryPage.notificationBar)
-        .toHaveText(expectedNotification);
-
-      await expect(categoryPage.cartItemQty).toHaveText('(1)');
+      // Assert
+      await expect(categoryPage.notificationBar).toHaveText(
+        expectedNotification,
+      );
+      await expect(categoryPage.topMenu.shoppingCartQty).toHaveText('(1)');
     },
   );
 
   test(
-    'mini shopping cart displays correct item details DWS-02-06',
-    { tag: '@smoke' },
+    'DWS-205 Pagination / sorting does not break product visibility',
+    { tag: '@regression' },
     async () => {
-      //Arrange
-      const bookData = products[7];
-      const bookItem = await categoryPage.getItemByTitle(bookData.title);
-      const itemTitle = bookData.title;
-      const itemActualPrice = bookData.price.toFixed(2);
+      // Arrange
+      const productData = products.find(
+        (p) => p.categoryUrl === 'apparel-shoes',
+      );
+      expect(productData).toBeDefined();
+      const sortValue = 'Name: Z to A';
+      const productsPerPage = 4;
 
-      //Act
-      await categoryPage.clickAddToCart(bookItem);
+      // Act
+      await categoryPage.goto(productData!.categoryUrl);
+      const categoryProductsCount = await categoryPage.itemDetails.count();
 
-      //Assert
-      await expect(categoryPage.shoppingCartName).toHaveText(itemTitle);
-      await expect(categoryPage.shoppingUnitPrice).toHaveText(itemActualPrice);
-      await expect(categoryPage.shoppingQty).toHaveText('1');
-    },
-  );
-
-  test(
-    'mini shopping cart should not display Add to cart button for items out of stock DWS-02-04',
-    { tag: '@smoke' },
-    async () => {
-      //Arrange
-      //Arrange
-      const bookItem = products[10];
-      const bookItemLocator = await categoryPage.getItemByTitle(bookItem.title);
-      const addTocart = bookItemLocator.filter({
-        has: categoryPage.addToCartButton,
+      // Act & Assert: Sort
+      await test.step(`sorting products by ${sortValue}`, async () => {
+        await categoryPage.sortProducts(sortValue);
+        await expect(categoryPage.itemDetails).toHaveCount(
+          categoryProductsCount,
+        );
       });
 
-      //Assert
-      await expect(addTocart).toBeHidden();
+      // Act & Assert: Pagination
+      await test.step(`page display ${productsPerPage} products on page`, async () => {
+        await categoryPage.selectItemsPerPage(String(productsPerPage));
+        await expect(categoryPage.itemDetails).toHaveCount(productsPerPage);
+      });
+    },
+  );
+
+  test(
+    'DWS-206 Mini cart should display correct product name',
+    { tag: '@regression' },
+    async () => {
+      // Arrange
+      const productData = products.find(
+        (p) => p.categoryUrl === 'cell-phones' && p.inStock,
+      );
+      expect(productData).toBeDefined();
+
+      // Act
+      await categoryPage.goto(productData!.categoryUrl);
+      await categoryPage.clickAddToCart(productData!.title);
+
+      // Assert
+      await expect(categoryPage.topMenu.miniCartProductName).toHaveText(
+        productData!.title,
+      );
+    },
+  );
+
+  test(
+    'DWS-207 Mini cart should display correct price and quantity',
+    { tag: '@regression' },
+    async () => {
+      // Arrange
+      const productData = products.find(
+        (p) => p.categoryUrl === 'cell-phones' && p.inStock,
+      );
+      expect(productData).toBeDefined();
+      const itemPrice = productData!.price.toFixed(2);
+
+      // Act
+      await categoryPage.goto(productData!.categoryUrl);
+      await categoryPage.clickAddToCart(productData!.title);
+
+      // Assert
+      await expect(categoryPage.topMenu.miniCartProductPrice).toContainText(
+        itemPrice,
+      );
+      await expect(categoryPage.topMenu.miniCartProductQty).toContainText('1');
     },
   );
 });

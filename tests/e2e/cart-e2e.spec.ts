@@ -1,11 +1,11 @@
-import { Item } from '../../src/models/product.model';
+import { Product } from '../../src/models/product.model';
 import { ItemPage } from '../../src/pages/item.page';
 import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('Verify adding, updating, and deleting item in cart for non-logged user', () => {
   let itemPage: ItemPage;
-  let item: Item;
+  let item: Product;
 
   test.beforeEach(async ({ page }) => {
     itemPage = new ItemPage(page);
