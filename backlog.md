@@ -14,12 +14,13 @@
 
 🔹 EPIC 2: Category & Product Listing
 
-📝 DWS-201 Category page displays products list with at least one item [SMOKE]
-📝 DWS-202 Each product has consistent data (name, price, rating displayed) [REGRESSION]
-📝 DWS-203 Product is clickable and opens product details page [SMOKE]
-✅ DWS-204 Out-of-stock products cannot be added to cart [REGRESSION]
-✅ DWS-205 User can add product to cart directly from listing [SMOKE]
-📝 DWS-206 Pagination / sorting does not break product visibility [REGRESSION]
+✅ DWS-201 Should display correct details for product [REGRESSION]
+✅ DWS-202 Product is clickable and opens product details page [SMOKE]
+✅ DWS-203 Out-of-stock products cannot be added to cart [REGRESSION]
+✅ DWS-204 User can add product to cart directly from listing [SMOKE]
+✅ DWS-205 Pagination / sorting does not break product visibility [REGRESSION]
+✅ DWS-206 Mini cart should display correct product name [REGRESSION]
+✅ DWS-207 DWS-207 Mini cart should display correct price and quantity [REGRESSION]
 
 🔹 EPIC 3: Product Details
 

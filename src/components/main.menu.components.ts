@@ -4,6 +4,7 @@ export type MainMenuLink =
   | 'books'
   | 'computers'
   | 'electronics'
+  | 'cell-phones'
   | 'apparel-shoes'
   | 'digital-downloads'
   | 'jewelry'
@@ -13,6 +14,7 @@ export class MainMenuComponent {
   booksButton: Locator;
   computersButton: Locator;
   electronicsButton: Locator;
+  cellPhoneButton: Locator;
   apparelShoesButton: Locator;
   digitalDownloadsButton: Locator;
   jewelryButton: Locator;
@@ -23,6 +25,9 @@ export class MainMenuComponent {
     this.computersButton = this.page.locator('.top-menu a[href="/computers"]');
     this.electronicsButton = this.page.locator(
       '.top-menu a[href="/electronics"]',
+    );
+    this.cellPhoneButton = this.page.locator(
+      '.top-menu a[href="/cell-phones"]',
     );
     this.apparelShoesButton = this.page.locator(
       '.top-menu a[href="/apparel-shoes"]',
@@ -44,6 +49,10 @@ export class MainMenuComponent {
         break;
       case 'electronics':
         await this.electronicsButton.click();
+        break;
+      case 'cell-phones':
+        await this.electronicsButton.hover();
+        await this.cellPhoneButton.click();
         break;
       case 'apparel-shoes':
         await this.apparelShoesButton.click();
