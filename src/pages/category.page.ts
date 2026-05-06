@@ -1,5 +1,5 @@
 import { BasePage } from './base.page';
-import { ItemPage } from './item.page';
+import { ProductPage } from './product.page';
 import { Locator, Page } from '@playwright/test';
 
 export class CategoryPage extends BasePage {
@@ -50,10 +50,10 @@ export class CategoryPage extends BasePage {
     await item.locator(this.addToCartButton).click();
   }
 
-  async clickItemPicture(title: string): Promise<ItemPage> {
+  async clickItemPicture(title: string): Promise<ProductPage> {
     const item = await this.getItemByTitle(title);
     await item.locator(this.itemPicture).click();
-    return new ItemPage(this.page);
+    return new ProductPage(this.page);
   }
 
   async isProductsGridLoaded(): Promise<boolean> {
@@ -61,9 +61,9 @@ export class CategoryPage extends BasePage {
     return (await gridLocator.count()) > 0;
   }
 
-  async goToItemPage(item: Locator): Promise<ItemPage> {
+  async goToProductPage(item: Locator): Promise<ProductPage> {
     await item.locator('a').click();
-    return new ItemPage(this.page);
+    return new ProductPage(this.page);
   }
 
   async sortProducts(value: string): Promise<void> {

@@ -1,17 +1,17 @@
 import { Product } from '../../src/models/product.model';
-import { ItemPage } from '../../src/pages/item.page';
+import { ProductPage } from '../../src/pages/product.page';
 import { products } from '../../src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('Verify adding, updating, and deleting item in cart for non-logged user', () => {
-  let itemPage: ItemPage;
+  let productPage: ProductPage;
   let item: Product;
 
   test.beforeEach(async ({ page }) => {
-    itemPage = new ItemPage(page);
+    productPage = new ProductPage(page);
     item = products[3];
-    await itemPage.goto(item.url);
-    await itemPage.clickAddToCartButton();
+    await productPage.goto(item.url);
+    await productPage.clickAddToCartButton();
   });
 
   test('cart contains correct item DWS-04-01', async () => {
@@ -19,10 +19,10 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     const expectedTitle = item.title;
     const expectedPrice = item.price.toFixed(2);
 
-    await expect(itemPage.topMenu.shoppingCartQty).toBeVisible();
+    await expect(productPage.topMenu.shoppingCartQty).toBeVisible();
 
     //Act
-    const cartPage = await itemPage.goToShoppingCart();
+    const cartPage = await productPage.goToShoppingCart();
 
     //Assert
     await expect(cartPage.productName).toHaveText(expectedTitle, {
@@ -38,10 +38,10 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     const itemPrice = item.price;
     const expectedSubTotalPrice = (Number(expectedQty) * itemPrice).toFixed(2);
 
-    await expect(itemPage.topMenu.shoppingCartQty).toBeVisible();
+    await expect(productPage.topMenu.shoppingCartQty).toBeVisible();
 
     //Act
-    const cartPage = await itemPage.goToShoppingCart();
+    const cartPage = await productPage.goToShoppingCart();
     await cartPage.editItemQty(expectedQty);
 
     //Assert
@@ -53,10 +53,10 @@ test.describe('Verify adding, updating, and deleting item in cart for non-logged
     //Arrange
     const expectedMessage = 'Your Shopping Cart is empty!';
 
-    await expect(itemPage.topMenu.shoppingCartQty).toBeVisible();
+    await expect(productPage.topMenu.shoppingCartQty).toBeVisible();
 
     //Act
-    const cartPage = await itemPage.goToShoppingCart();
+    const cartPage = await productPage.goToShoppingCart();
     await cartPage.deleteItem();
 
     //Assert
