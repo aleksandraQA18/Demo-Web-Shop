@@ -38,12 +38,14 @@ test.describe('Category & Product Listing', () => {
 
       // Act
       await categoryPage.goto(bookProduct!.categoryUrl);
-      const itemPage = await categoryPage.clickItemPicture(bookProduct!.title);
+      const productPage = await categoryPage.clickItemPicture(
+        bookProduct!.title,
+      );
 
       // Assert
-      const url = await itemPage.getUrl();
+      const url = await productPage.getUrl();
       expect(url).toContain(bookProduct!.url);
-      await expect(itemPage.productName).toHaveText(bookProduct!.title);
+      await expect(productPage.productName).toHaveText(bookProduct!.title);
     },
   );
 

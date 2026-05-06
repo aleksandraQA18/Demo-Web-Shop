@@ -24,11 +24,11 @@
 
 🔹 EPIC 3: Product Details
 
-📝 DWS-301 Product details page displays correct data [SMOKE]
-📝 DWS-302 Product price is consistent with listing page [REGRESSION]
-📝 DWS-303 User can add available product to cart from product page [SMOKE]
-📝 DWS-304 Adding product updates cart counter correctly [SMOKE]
-📝 DWS-305 Product availability affects "Add to cart" behavior [REGRESSION]
+✅ DWS-301 Product details page displays correct data [SMOKE]
+✅ DWS-302 Product price is consistent with listing page [REGRESSION]
+✅ DWS-303 User can add available product to cart from product page [SMOKE]
+✅ DWS-304 Adding product updates cart counter correctly [SMOKE]
+✅ DWS-305 Product availability affects "Add to cart" behavior [REGRESSION]
 
 🔹 EPIC 4: Cart Management
 
