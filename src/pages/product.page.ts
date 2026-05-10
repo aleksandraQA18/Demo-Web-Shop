@@ -1,6 +1,5 @@
 import { BasePage } from './base.page';
-import { CartPage } from './cart.page';
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 
 export class ProductPage extends BasePage {
   addToCartButton: Locator;
@@ -20,10 +19,6 @@ export class ProductPage extends BasePage {
 
   async clickAddToCartButton(): Promise<void> {
     await this.addToCartButton.click();
-  }
-
-  async goToShoppingCart(): Promise<CartPage> {
-    await this.topMenu.shoppingCartLink.click();
-    return new CartPage(this.page);
+    await expect(this.notificationBar).toBeVisible();
   }
 }

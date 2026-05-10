@@ -32,13 +32,11 @@
 
 🔹 EPIC 4: Cart Management
 
-✅ DWS-401 Added product appears in cart with correct details [SMOKE]
-📝 DWS-402 Cart reflects correct price and quantity [REGRESSION]
-✅ DWS-403 User can change product quantity [SMOKE]
-📝 DWS-404 Updating quantity recalculates total price [REGRESSION]
-✅ DWS-405 User can remove product from cart [SMOKE]
-📝 DWS-406 Empty cart state is handled correctly [REGRESSION]
-📝 DWS-407 Cart data persists after page refresh [REGRESSION]
+✅ DWS-401 Cart reflects correct price and quantity [REGRESSION]
+✅ DWS-402 User can change product quantity [SMOKE]
+✅ DWS-403 Updating quantity recalculates total price [REGRESSION]
+✅ DWS-404 User can remove product from cart [SMOKE]
+📝 DWS-405 Cart data persists after page refresh [REGRESSION]
 
 🔹 EPIC 5: Checkout (🔥 CRITICAL)
 
