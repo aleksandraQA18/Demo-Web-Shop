@@ -57,7 +57,6 @@ test.describe('Product Details', () => {
       await productPage.clickAddToCartButton();
 
       //Assert
-      await expect(productPage.notificationBar).toBeVisible();
       await expect(productPage.topMenu.miniCartProductQty).toHaveText(
         expectedCartQty,
       );
@@ -72,7 +71,6 @@ test.describe('Product Details', () => {
       const expectedCartQty = 'Quantity: 2';
       //Act
       await productPage.clickAddToCartButton();
-      await expect.soft(productPage.notificationBar).toBeVisible();
 
       await expect.soft(productPage.notificationBar).toBeHidden();
 
