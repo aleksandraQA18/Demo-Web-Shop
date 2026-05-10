@@ -23,4 +23,8 @@ export class BasePage {
   async getUrl(): Promise<string> {
     return this.page.url();
   }
+
+  async reloadPage(): Promise<void> {
+    await this.page.reload({ waitUntil: 'domcontentloaded' });
+  }
 }

@@ -21,9 +21,9 @@ export class CartPage extends BasePage {
     this.orderContent = this.page.locator('.order-summary-content');
   }
 
-  async editItemQty(quantity: string): Promise<void> {
-    await this.qtyInput.clear();
-    await this.qtyInput.fill(quantity);
+  async editItemQty(quantity: string, index: number = 0): Promise<void> {
+    await this.qtyInput.nth(index).clear();
+    await this.qtyInput.nth(index).fill(quantity);
     await this.updateButton.click();
   }
 
