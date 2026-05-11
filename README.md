@@ -100,7 +100,7 @@ src/
 ├── models/             # Data models
 │   ├── product.model.ts
 │   └── user.model.ts
-└── global-setup.ts     # Environment configuration
+└── env.config.ts     # Environment configuration
 
 tests/
 ├── smoke/              # Critical path tests

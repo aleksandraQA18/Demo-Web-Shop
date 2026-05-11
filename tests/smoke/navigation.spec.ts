@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../src/global-setup';
+import { BASE_URL } from '../../src/env.config';
 import { CategoryPage } from '../../src/pages/category.page';
 import { HomePage } from '../../src/pages/home.page';
 import { mainMenuLinks, topMenuLinks } from '../../src/test-data/navigation';
@@ -14,7 +14,7 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
     await homePage.goto();
   });
 
-  test('DWS-101 Home page loads successfully', async () => {
+  test('DWS-101 Home page loads successfully @logged', async () => {
     //Arrange
     const homePageTitle = 'Demo Web Shop';
 
