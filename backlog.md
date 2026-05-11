@@ -36,7 +36,7 @@
 ✅ DWS-402 User can change product quantity [SMOKE]
 ✅ DWS-403 Updating quantity recalculates total price [REGRESSION]
 ✅ DWS-404 User can remove product from cart [SMOKE]
-📝 DWS-405 Cart data persists after page refresh [REGRESSION]
+✅ DWS-405 Cart data persists after page refresh [REGRESSION]
 
 🔹 EPIC 5: Checkout (🔥 CRITICAL)
 
