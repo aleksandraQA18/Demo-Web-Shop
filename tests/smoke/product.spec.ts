@@ -1,7 +1,7 @@
-import { Product } from '../../src/models/product.model';
-import { CategoryPage } from '../../src/pages/category.page';
-import { ProductPage } from '../../src/pages/product.page';
-import { products } from '../../src/test-data/products';
+import { Product } from '@_src/models/product.model';
+import { CategoryPage } from '@_src/pages/category.page';
+import { ProductPage } from '@_src/pages/product.page';
+import { products } from '@_src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('Product Details', () => {

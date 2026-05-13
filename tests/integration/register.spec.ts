@@ -1,7 +1,7 @@
-import { createRegisterData } from '../../src/factory/register.user';
-import { RegisterUser } from '../../src/models/user.model';
-import { RegisterPage } from '../../src/pages/register.page';
-import { RegisterResultPage } from '../../src/pages/register.result.page';
+import { createRegisterData } from '@_src/factory/register.user';
+import { RegisterUser } from '@_src/models/user.model';
+import { RegisterPage } from '@_src/pages/register.page';
+import { RegisterResultPage } from '@_src/pages/register.result.page';
 import test, { expect } from '@playwright/test';
 
 test.describe('Verify register', () => {

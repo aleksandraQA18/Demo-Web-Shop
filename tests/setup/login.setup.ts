@@ -1,6 +1,6 @@
 import { STORAGE_STATE } from '../../playwright.config';
-import { LoginPage } from '../../src/pages/login.page';
-import { user } from '../../src/test-data/user.data';
+import { LoginPage } from '@_src/pages/login.page';
+import { user } from '@_src/test-data/user.data';
 import { expect, test as setup } from '@playwright/test';
 
 setup('user can login with valid data', async ({ page }) => {

@@ -1,8 +1,8 @@
-import { BASE_URL } from '../../src/env.config';
-import { CategoryPage } from '../../src/pages/category.page';
-import { HomePage } from '../../src/pages/home.page';
-import { mainMenuLinks, topMenuLinks } from '../../src/test-data/navigation';
-import { products } from '../../src/test-data/products';
+import { BASE_URL } from '@_src/env.config';
+import { CategoryPage } from '@_src/pages/category.page';
+import { HomePage } from '@_src/pages/home.page';
+import { mainMenuLinks, topMenuLinks } from '@_src/test-data/navigation';
+import { products } from '@_src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
