@@ -1,5 +1,5 @@
-import { MainMenuComponent } from '../components/main.menu.components';
-import { TopMenuComponent } from '../components/top.menu.components';
+import { MainMenuComponent } from '@_src/components/main.menu.components';
+import { TopMenuComponent } from '@_src/components/top.menu.components';
 import { Page } from '@playwright/test';
 
 export class BasePage {

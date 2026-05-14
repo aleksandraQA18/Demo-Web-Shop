@@ -1,5 +1,5 @@
-import { CategoryPage } from '../../src/pages/category.page';
-import { products } from '../../src/test-data/products';
+import { CategoryPage } from '@_src/pages/category.page';
+import { products } from '@_src/test-data/products';
 import test, { expect } from '@playwright/test';
 
 test.describe('Category & Product Listing', () => {
