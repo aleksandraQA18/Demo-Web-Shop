@@ -1,14 +1,5 @@
+import { CategoryPage } from '../pages/category.page';
 import { Locator, Page } from '@playwright/test';
-
-export type MainMenuLink =
-  | 'books'
-  | 'computers'
-  | 'electronics'
-  | 'cell-phones'
-  | 'apparel-shoes'
-  | 'digital-downloads'
-  | 'jewelry'
-  | 'gift-cards';
 
 export class MainMenuComponent {
   booksButton: Locator;
@@ -39,33 +30,44 @@ export class MainMenuComponent {
     this.giftCardsButton = this.page.locator('.top-menu a[href="/gift-cards"]');
   }
 
-  async clickMainMenuCategory(category: MainMenuLink): Promise<void> {
-    switch (category) {
-      case 'books':
-        await this.booksButton.click();
-        break;
-      case 'computers':
-        await this.computersButton.click();
-        break;
-      case 'electronics':
-        await this.electronicsButton.click();
-        break;
-      case 'cell-phones':
-        await this.electronicsButton.hover();
-        await this.cellPhoneButton.click();
-        break;
-      case 'apparel-shoes':
-        await this.apparelShoesButton.click();
-        break;
-      case 'digital-downloads':
-        await this.digitalDownloadsButton.click();
-        break;
-      case 'jewelry':
-        await this.jewelryButton.click();
-        break;
-      case 'gift-cards':
-        await this.giftCardsButton.click();
-        break;
-    }
+  async goToBooks(): Promise<CategoryPage> {
+    await this.booksButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToComputers(): Promise<CategoryPage> {
+    await this.computersButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToElectronics(): Promise<CategoryPage> {
+    await this.electronicsButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToCellPhones(): Promise<CategoryPage> {
+    await this.electronicsButton.hover();
+    await this.cellPhoneButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToApparelShoes(): Promise<CategoryPage> {
+    await this.apparelShoesButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToDigitalDownloads(): Promise<CategoryPage> {
+    await this.digitalDownloadsButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToJewelry(): Promise<CategoryPage> {
+    await this.jewelryButton.click();
+    return new CategoryPage(this.page);
+  }
+
+  async goToGiftCards(): Promise<CategoryPage> {
+    await this.giftCardsButton.click();
+    return new CategoryPage(this.page);
   }
 }

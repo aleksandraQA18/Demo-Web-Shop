@@ -1,8 +1,12 @@
+import { MainMenuComponent } from '@_src/components/main.menu.components';
+import { TopMenuComponent } from '@_src/components/top.menu.components';
 import { BasePage } from '@_src/pages/base.page';
 import { ProductPage } from '@_src/pages/product.page';
 import { Locator, Page } from '@playwright/test';
 
 export class CategoryPage extends BasePage {
+  mainMenu: MainMenuComponent;
+  topMenu: TopMenuComponent;
   productItem: Locator;
   itemDetails: Locator;
   itemPicture: Locator;
@@ -14,6 +18,8 @@ export class CategoryPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+    this.topMenu = new TopMenuComponent(page);
+    this.mainMenu = new MainMenuComponent(page);
     this.productItem = this.page.locator('.product-item');
     this.itemDetails = this.page.locator('.details');
     this.itemPicture = this.page.locator('.picture');
