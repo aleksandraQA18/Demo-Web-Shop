@@ -31,7 +31,7 @@ export default defineConfig({
     },
     {
       name: 'setup',
-      testMatch: '**.setup.ts',
+      testMatch: '*.setup.ts',
     },
     {
       name: 'logged',
