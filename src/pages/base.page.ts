@@ -1,16 +1,9 @@
-import { MainMenuComponent } from '@_src/components/main.menu.components';
-import { TopMenuComponent } from '@_src/components/top.menu.components';
 import { Page } from '@playwright/test';
 
 export class BasePage {
-  url = '';
-  mainMenu: MainMenuComponent;
-  topMenu: TopMenuComponent;
+  url = '/';
 
-  constructor(protected page: Page) {
-    this.topMenu = new TopMenuComponent(page);
-    this.mainMenu = new MainMenuComponent(page);
-  }
+  constructor(protected page: Page) {}
 
   async goto(url?: string): Promise<void> {
     await this.page.goto(url ?? this.url);
