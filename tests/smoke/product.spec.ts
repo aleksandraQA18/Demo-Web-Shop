@@ -37,7 +37,7 @@ test.describe('Product Details', () => {
       const categoryPage = new CategoryPage(page);
 
       //Act
-      await productPage.mainMenu.clickMainMenuCategory(bookProduct.categoryUrl);
+      await productPage.mainMenu.goToBooks();
       const listingProduct = await categoryPage.getItemDetails(
         bookProduct.title,
       );

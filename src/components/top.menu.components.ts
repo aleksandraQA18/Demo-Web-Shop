@@ -1,8 +1,11 @@
+import { CartPage } from '../pages/cart.page';
+import { LoginPage } from '../pages/login.page';
+import { RegisterPage } from '../pages/register.page';
+import { WishListPage } from '@_src/pages/wishlist.page';
 import { Locator, Page } from '@playwright/test';
 
-export type TopMenuLink = 'register' | 'login' | 'cart' | 'wishlist';
-
 export class TopMenuComponent {
+  homePageLogo: Locator;
   registerLink: Locator;
   loginLink: Locator;
   userAccountLink: Locator;
@@ -16,6 +19,7 @@ export class TopMenuComponent {
   miniCartProductQty: Locator;
 
   constructor(private page: Page) {
+    this.homePageLogo = this.page.locator('.header-logo');
     this.registerLink = this.page.locator('.ico-register');
     this.loginLink = this.page.locator('.ico-login');
     this.userAccountLink = this.page.locator('.header-links .account');
@@ -29,20 +33,23 @@ export class TopMenuComponent {
     this.miniCartProductQty = this.miniShoppingCart.locator('.quantity');
   }
 
-  async clickTopMenuLink(link: TopMenuLink): Promise<void> {
-    switch (link) {
-      case 'register':
-        await this.registerLink.click();
-        break;
-      case 'login':
-        await this.loginLink.click();
-        break;
-      case 'cart':
-        await this.shoppingCartLink.click();
-        break;
-      case 'wishlist':
-        await this.wishingListLink.click();
-        break;
-    }
+  async goToRegister(): Promise<RegisterPage> {
+    await this.registerLink.click();
+    return new RegisterPage(this.page);
+  }
+
+  async goToLogin(): Promise<LoginPage> {
+    await this.loginLink.click();
+    return new LoginPage(this.page);
+  }
+
+  async goToCart(): Promise<CartPage> {
+    await this.shoppingCartLink.click();
+    return new CartPage(this.page);
+  }
+
+  async goToWishlist(): Promise<WishListPage> {
+    await this.wishingListLink.click();
+    return new WishListPage(this.page);
   }
 }

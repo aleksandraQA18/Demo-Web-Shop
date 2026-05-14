@@ -12,10 +12,9 @@ test.describe('Cart Management', () => {
   test.beforeEach(async ({ page }) => {
     productPage = new ProductPage(page);
     item = products.find((p) => p.categoryUrl === 'books')!;
-    cartPage = new CartPage(page);
     await productPage.goto(item.url);
     await productPage.clickAddToCartButton();
-    await productPage.topMenu.clickTopMenuLink('cart');
+    cartPage = await productPage.topMenu.goToCart();
   });
 
   test(
@@ -92,7 +91,7 @@ test.describe('Cart Management', () => {
       //Act - add and edit second product
       await productPage.goto(item2.url);
       await productPage.clickAddToCartButton();
-      await productPage.topMenu.clickTopMenuLink('cart');
+      cartPage = await productPage.topMenu.goToCart();
       await cartPage.editItemQty('4', 1);
 
       //verify if quantity is updated

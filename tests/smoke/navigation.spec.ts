@@ -1,6 +1,5 @@
 import { CategoryPage } from '@_src/pages/category.page';
 import { HomePage } from '@_src/pages/home.page';
-import { mainMenuLinks, topMenuLinks } from '@_src/test-data/navigation';
 import { products } from '@_src/test-data/products';
 import test, { expect } from '@playwright/test';
 import { BASE_URL } from 'config/env.config';
@@ -11,6 +10,7 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
 
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
+    categoryPage = new CategoryPage(page);
     await homePage.goto();
   });
 
@@ -22,46 +22,138 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
     const title = await homePage.getTitle();
     expect(title).toContain(homePageTitle);
 
-    await expect(homePage.homePageLogo).toBeVisible();
+    await expect(homePage.topMenu.homePageLogo).toBeVisible();
   });
 
-  test('DWS-102 User can access register, log in, cart and wishlist from top menu', async ({
-    page,
-  }) => {
-    //Act
-    for (const link of topMenuLinks) {
-      await test.step(`Navigate to ${link.name}`, async () => {
-        await homePage.topMenu.clickTopMenuLink(link.name);
+  test('DWS-102 User can access register, log in, cart and wishlist from top menu', async () => {
+    await test.step('User can access register from top menu', async () => {
+      //Act
+      const registerPage = await homePage.topMenu.goToRegister();
 
-        await expect(page).toHaveURL(new RegExp(`/${link.urlPart}$`));
-      });
-    }
+      //Assert
+      const pageUrl = await registerPage.getUrl();
+      expect(pageUrl).toContain(registerPage.url);
+    });
+
+    await test.step('User can access log in from top menu', async () => {
+      //Act
+      await homePage.goto();
+      const loginPage = await homePage.topMenu.goToLogin();
+
+      //Assert
+      const pageUrl = await loginPage.getUrl();
+      expect(pageUrl).toContain(loginPage.url);
+    });
+
+    await test.step('User can access cart from top menu', async () => {
+      //Act
+      await homePage.goto();
+      const cartPage = await homePage.topMenu.goToCart();
+
+      //Assert
+      const pageUrl = await cartPage.getUrl();
+      expect(pageUrl).toContain(cartPage.url);
+    });
+
+    await test.step('User can access wishlist from top menu', async () => {
+      //Act
+      await homePage.goto();
+      const wishListPage = await homePage.topMenu.goToWishlist();
+
+      //Assert
+      const pageUrl = await wishListPage.getUrl();
+      expect(pageUrl).toContain(wishListPage.url);
+    });
   });
 
-  test('DWS-103 User can navigate to categories from header category menu', async ({
-    page,
-  }) => {
+  test('DWS-103 User can navigate to main categories from header category menu', async () => {
+    await test.step('User can access Book category', async () => {
+      //Arrange
+      const expectedUrl = '/books';
+
+      //Act
+      const bookPage = await homePage.mainMenu.goToBooks();
+
+      //Assert
+      const pageUrl = await bookPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+
+    await test.step('User can access Computers category', async () => {
+      //Arrange
+      const expectedUrl = '/computers';
+
+      //Act
+      const computersPage = await homePage.mainMenu.goToComputers();
+
+      //Assert
+      const pageUrl = await computersPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+
+    await test.step('User can access Electronics category', async () => {
+      //Arrange
+      const expectedUrl = '/electronics';
+
+      //Act
+      const electronicsPage = await homePage.mainMenu.goToElectronics();
+
+      //Assert
+      const pageUrl = await electronicsPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+
+    await test.step('User can access Apparel & Shoes category', async () => {
+      //Arrange
+      const expectedUrl = '/apparel-shoes';
+
+      //Act
+      const apparealPage = await homePage.mainMenu.goToApparelShoes();
+
+      //Assert
+      const pageUrl = await apparealPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+
+    await test.step('User can access Digital Downloads category', async () => {
+      //Arrange
+      const expectedUrl = '/digital-downloads';
+
+      //Act
+      const digitalPage = await homePage.mainMenu.goToDigitalDownloads();
+
+      //Assert
+      const pageUrl = await digitalPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+
+    await test.step('User can access Jewelry category', async () => {
+      //Arrange
+      const expectedUrl = '/jewelry';
+
+      //Act
+      const jewelryPage = await homePage.mainMenu.goToJewelry();
+
+      //Assert
+      const pageUrl = await jewelryPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+
+    await test.step('User can access Gift Cards category', async () => {
+      //Arrange
+      const expectedUrl = '/gift-cards';
+
+      //Act
+      const giftCardsPage = await homePage.mainMenu.goToGiftCards();
+
+      //Assert
+      const pageUrl = await giftCardsPage.getUrl();
+      expect(pageUrl).toContain(expectedUrl);
+    });
+  });
+
+  test('DWS-104 User can navigate to cart from notification bar', async () => {
     //Arrange
-    categoryPage = new CategoryPage(page);
-
-    //Act
-
-    for (const link of mainMenuLinks) {
-      await test.step(`Navigate to ${link.name}`, async () => {
-        await homePage.mainMenu.clickMainMenuCategory(link.name);
-
-        await expect(page).toHaveURL(new RegExp(`/${link.urlPart}$`));
-        const isLoaded = await categoryPage.isProductsGridLoaded();
-        expect(isLoaded).toBe(true);
-      });
-    }
-  });
-
-  test('DWS-104 User can navigate to cart from notification bar', async ({
-    page,
-  }) => {
-    //Arrange
-    categoryPage = new CategoryPage(page);
     const expectedTitle = 'Shopping Cart';
     const expectedUrl = 'cart';
     const bookProduct = products.find(
@@ -69,7 +161,7 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
     );
 
     //Act
-    await homePage.mainMenu.clickMainMenuCategory('books');
+    await homePage.mainMenu.goToBooks();
     await categoryPage.clickAddToCart(bookProduct!.title);
     await categoryPage.shoppingCartNotification.click();
 
@@ -86,8 +178,8 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
     const expectedTitle = 'Demo Web Shop';
 
     //Act
-    await homePage.topMenu.clickTopMenuLink('cart');
-    await homePage.homePageLogo.click();
+    await homePage.topMenu.goToCart();
+    await homePage.topMenu.homePageLogo.click();
 
     //Assert
     const title = await homePage.getTitle();
@@ -108,21 +200,15 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
       );
 
       //Act
-      await homePage.mainMenu.clickMainMenuCategory('books');
+      await homePage.mainMenu.goToBooks();
       await categoryPage.clickAddToCart(bookProduct!.title);
 
       //Assert
       await expect(homePage.topMenu.shoppingCartQty).toHaveText(expectedQty);
 
-      for (const link of topMenuLinks) {
-        await test.step(`Navigate to ${link.name}`, async () => {
-          await homePage.topMenu.clickTopMenuLink(link.name);
+      await homePage.topMenu.goToLogin();
 
-          await expect(homePage.topMenu.shoppingCartQty).toHaveText(
-            expectedQty,
-          );
-        });
-      }
+      await expect(homePage.topMenu.shoppingCartQty).toHaveText(expectedQty);
     },
   );
 });
