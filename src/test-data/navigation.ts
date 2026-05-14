@@ -1,5 +1,5 @@
-import { MainMenuLink } from '../components/main.menu.components';
-import { TopMenuLink } from '../components/top.menu.components';
+import { MainMenuLink } from '@_src/components/main.menu.components';
+import { TopMenuLink } from '@_src/components/top.menu.components';
 
 export const topMenuLinks: { name: TopMenuLink; urlPart: string }[] = [
   { name: 'register', urlPart: 'register' },

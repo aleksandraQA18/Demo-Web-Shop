@@ -1,5 +1,5 @@
-import { BasePage } from './base.page';
-import { ProductPage } from './product.page';
+import { BasePage } from '@_src/pages/base.page';
+import { ProductPage } from '@_src/pages/product.page';
 import { Locator, Page } from '@playwright/test';
 
 export class CategoryPage extends BasePage {

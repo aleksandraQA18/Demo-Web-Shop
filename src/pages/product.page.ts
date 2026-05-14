@@ -1,4 +1,4 @@
-import { BasePage } from './base.page';
+import { BasePage } from '@_src/pages/base.page';
 import { Locator, Page, expect } from '@playwright/test';
 
 export class ProductPage extends BasePage {
