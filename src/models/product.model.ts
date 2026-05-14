@@ -1,4 +1,4 @@
-import { MainMenuLink } from '../components/main.menu.components';
+import { MainMenuLink } from '@_src/components/main.menu.components';
 
 export interface Product {
   id: number;
