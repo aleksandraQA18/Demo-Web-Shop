@@ -81,36 +81,46 @@ npm run show-report
 ## 📂 Project Structure
 
 ```
-src/
-├── components/           # Reusable UI components (menu, navigation)
-│   ├── main.menu.components.ts
-│   └── top.menu.components.ts
-├── pages/               # Page Object Models
-│   ├── base.page.ts
-│   ├── home.page.ts
-│   ├── cart.page.ts
-│   ├── category.page.ts
-│   ├── login.page.ts
-│   └── register.page.ts
-├── test-data/          # Static test data (NO API)
-│   ├── products.ts     # Product fixtures
-│   └── user.data.ts    # User credentials
-├── factory/            # Test data builders
-│   └── register.user.ts
-├── models/             # Data models
-│   ├── product.model.ts
-│   └── user.model.ts
-└── env.config.ts     # Environment configuration
-
-tests/
-├── smoke/              # Critical path tests
-│   ├── cart.spec.ts
-│   └── navigation.spec.ts
-├── integration/        # Feature workflow tests
-│   ├── login.spec.ts
-│   └── register.spec.ts
-└── e2e/               # End-to-end scenarios
-    └── cart-e2e.spec.ts
+demo-web-shop-pw/
+├── config/                      # Configuration files
+│   ├── env.config.ts           # Environment setup
+│   └── global.setup.ts         # Global test setup
+├── src/                         # Source code
+│   ├── components/             # Reusable UI components
+│   │   ├── main.menu.components.ts
+│   │   └── top.menu.components.ts
+│   ├── pages/                  # Page Object Models
+│   │   ├── base.page.ts
+│   │   ├── home.page.ts
+│   │   ├── cart.page.ts
+│   │   ├── category.page.ts
+│   │   ├── login.page.ts
+│   │   ├── product.page.ts
+│   │   ├── register.page.ts
+│   │   └── register.result.page.ts
+│   ├── test-data/              # Static test fixtures (NO API)
+│   │   ├── navigation.ts       # Navigation test data
+│   │   ├── products.ts         # Product fixtures
+│   │   └── user.data.ts        # User credentials
+│   ├── factory/                # Test data builders
+│   │   └── register.user.ts
+│   └── models/                 # Data models
+│       ├── product.model.ts
+│       └── user.model.ts
+├── tests/                       # Test suites
+│   ├── smoke/                  # Critical path tests
+│   ├── integration/            # Feature workflow tests
+│   ├── e2e/                    # End-to-end scenarios
+│   └── setup/                  # Setup fixtures
+├── playwright-report/          # Test reports (generated)
+├── test-results/               # Test results (generated)
+├── playwright.config.ts        # Playwright configuration
+├── eslint.config.mjs           # ESLint configuration
+├── tsconfig.json               # TypeScript configuration
+├── package.json                # Project dependencies
+├── backlog.md                  # Project backlog & requirements
+├── helper.md                   # Helper documentation
+└── README.md                   # This file
 ```
 
 ## 🧪 Test Categories
