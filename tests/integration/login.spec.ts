@@ -1,4 +1,3 @@
-import { HomePage } from '@_src/pages/home.page';
 import { LoginPage } from '@_src/pages/login.page';
 import { user } from '@_src/test-data/user.data';
 import test, { expect } from '@playwright/test';
@@ -11,15 +10,16 @@ test.describe('Verify login', () => {
     await loginPage.goto();
   });
 
-  test('user can login with valid data DWS-06-04', async ({ page }) => {
+  test('user can login with valid data DWS-06-04', async () => {
     //Arrange
-    const homePage = new HomePage(page);
+    const expectedLogoutLink = 'Log out';
 
     //Act
-    await loginPage.login(user);
+    const homePage = await loginPage.login(user);
 
     //Assert
     await expect(homePage.topMenu.userAccountLink).toHaveText(user.email);
+    await expect(homePage.topMenu.logoutLink).toHaveText(expectedLogoutLink);
   });
 
   test('user cannot login with invalid email DWS-06-05', async () => {
