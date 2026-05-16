@@ -26,10 +26,10 @@ test.describe('Verify login', () => {
     //Arrange
     const expectedMessage =
       'Login was unsuccessful. Please correct the errors and try again.';
-    user.email = 'invalidemail@gmail.com';
+    const invalidUser = { ...user, email: 'invalidemail@gmail.com' };
 
     //Act
-    await loginPage.login(user);
+    await loginPage.login(invalidUser);
 
     //Assert
     await expect(loginPage.failLoginMessage).toHaveText(expectedMessage);
@@ -39,10 +39,10 @@ test.describe('Verify login', () => {
     //Arrange
     const expectedMessage =
       'Login was unsuccessful. Please correct the errors and try again.';
-    user.password = 'Password123';
+    const invalidUser = { ...user, password: 'Password123' };
 
     //Act
-    await loginPage.login(user);
+    await loginPage.login(invalidUser);
 
     //Assert
     await expect(loginPage.failLoginMessage).toHaveText(expectedMessage);
