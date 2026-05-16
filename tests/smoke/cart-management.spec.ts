@@ -10,8 +10,8 @@ test.describe('Cart Management', () => {
   let cartPage: CartPage;
 
   test.beforeEach(async ({ page }) => {
-    productPage = new ProductPage(page);
     item = products.find((p) => p.categoryUrl === 'books')!;
+    productPage = new ProductPage(page);
     await productPage.goto(item.url);
     await productPage.clickAddToCartButton();
     cartPage = await productPage.topMenu.goToCart();
