@@ -1,5 +1,6 @@
 import { RegisterUser } from '@_src/models/user.model';
 import { BasePage } from '@_src/pages/base.page';
+import { RegisterResultPage } from '@_src/pages/register.result.page';
 import { Locator, Page } from '@playwright/test';
 
 export class RegisterPage extends BasePage {
@@ -33,7 +34,7 @@ export class RegisterPage extends BasePage {
     );
   }
 
-  async register(registerUser: RegisterUser): Promise<void> {
+  async register(registerUser: RegisterUser): Promise<RegisterResultPage> {
     const radioButton =
       registerUser.gender === 'male'
         ? this.maleGenderRadio
@@ -45,5 +46,6 @@ export class RegisterPage extends BasePage {
     await this.passwordInput.fill(registerUser.password);
     await this.confirmPasswordInput.fill(registerUser.password);
     await this.registerButton.click();
+    return new RegisterResultPage(this.page);
   }
 }

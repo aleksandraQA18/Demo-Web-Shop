@@ -1,7 +1,6 @@
 import { createRegisterData } from '@_src/factory/register.user';
 import { RegisterUser } from '@_src/models/user.model';
 import { RegisterPage } from '@_src/pages/register.page';
-import { RegisterResultPage } from '@_src/pages/register.result.page';
 import test, { expect } from '@playwright/test';
 
 test.describe('Verify register', () => {
@@ -14,13 +13,12 @@ test.describe('Verify register', () => {
     await registerPage.goto();
   });
 
-  test('register new user DWS-06-01', async ({ page }) => {
+  test('register new user DWS-06-01', async () => {
     //Arrange
     const expectedMessage = 'Your registration completed';
-    const registerResultPage = new RegisterResultPage(page);
 
     //Act
-    await registerPage.register(registerUserData);
+    const registerResultPage = await registerPage.register(registerUserData);
 
     //Assert
     await expect(registerResultPage.registerCompletedMessage).toHaveText(

@@ -1,6 +1,7 @@
 import { TopMenuComponent } from '@_src/components/top.menu.components';
 import { LoginUser } from '@_src/models/user.model';
 import { BasePage } from '@_src/pages/base.page';
+import { HomePage } from '@_src/pages/home.page';
 import { Locator, Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {
@@ -22,9 +23,10 @@ export class LoginPage extends BasePage {
     );
   }
 
-  async login(user: LoginUser): Promise<void> {
+  async login(user: LoginUser): Promise<HomePage> {
     await this.email.fill(user.email);
     await this.password.fill(user.password);
     await this.loginButton.click();
+    return new HomePage(this.page);
   }
 }

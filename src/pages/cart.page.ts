@@ -1,10 +1,8 @@
-import { MainMenuComponent } from '@_src/components/main.menu.components';
 import { TopMenuComponent } from '@_src/components/top.menu.components';
 import { BasePage } from '@_src/pages/base.page';
 import { Locator, Page } from '@playwright/test';
 
 export class CartPage extends BasePage {
-  mainMenu: MainMenuComponent;
   topMenu: TopMenuComponent;
   productName: Locator;
   productUnitPrice: Locator;
@@ -17,7 +15,6 @@ export class CartPage extends BasePage {
   constructor(protected page: Page) {
     super(page);
     this.topMenu = new TopMenuComponent(page);
-    this.mainMenu = new MainMenuComponent(page);
     this.productName = this.page.locator('.product-name');
     this.productUnitPrice = this.page.locator('.product-unit-price');
     this.productSubtotal = this.page.locator('.product-subtotal');

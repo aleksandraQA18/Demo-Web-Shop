@@ -8,8 +8,8 @@ export class TopMenuComponent {
   homePageLogo: Locator;
   registerLink: Locator;
   loginLink: Locator;
-  userAccountLink: Locator;
   logoutLink: Locator;
+  userAccountLink: Locator;
   shoppingCartLink: Locator;
   shoppingCartQty: Locator;
   wishingListLink: Locator;
