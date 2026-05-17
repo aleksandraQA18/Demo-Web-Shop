@@ -1,16 +1,9 @@
-import { LoginPage } from '@_src/pages/login.page';
+import { test } from '@_src/fixtures/pages.fixtures';
 import { user } from '@_src/test-data/user.data';
-import test, { expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 test.describe('Verify login', () => {
-  let loginPage: LoginPage;
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    await loginPage.goto();
-  });
-
-  test('user can login with valid data DWS-06-04', async () => {
+  test('user can login with valid data DWS-06-04', async ({ loginPage }) => {
     //Arrange
     const expectedLogoutLink = 'Log out';
 
@@ -22,7 +15,9 @@ test.describe('Verify login', () => {
     await expect(homePage.topMenu.logoutLink).toHaveText(expectedLogoutLink);
   });
 
-  test('user cannot login with invalid email DWS-06-05', async () => {
+  test('user cannot login with invalid email DWS-06-05', async ({
+    loginPage,
+  }) => {
     //Arrange
     const expectedMessage =
       'Login was unsuccessful. Please correct the errors and try again.';
@@ -35,7 +30,9 @@ test.describe('Verify login', () => {
     await expect(loginPage.failLoginMessage).toHaveText(expectedMessage);
   });
 
-  test('user cannot login with invalid password DWS-06-06', async () => {
+  test('user cannot login with invalid password DWS-06-06', async ({
+    loginPage,
+  }) => {
     //Arrange
     const expectedMessage =
       'Login was unsuccessful. Please correct the errors and try again.';
