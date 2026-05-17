@@ -1,7 +1,6 @@
 import { STORAGE_STATE } from '@_pw-config';
-import { pagesObjectsTest as setup } from '@_src/fixtures/pages.fixtures';
+import { expect, test as setup } from '@_src/fixtures/merged.fixtures';
 import { user } from '@_src/test-data/user.data';
-import { expect } from '@playwright/test';
 
 setup('login and save session', async ({ page, loginPage }) => {
   //Act

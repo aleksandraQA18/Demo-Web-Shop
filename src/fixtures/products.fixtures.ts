@@ -3,11 +3,14 @@ import { ProductPage } from '@_src/pages/product.page';
 import { products } from '@_src/test-data/products';
 import { test as baseTest, expect } from '@playwright/test';
 
+interface GetProductContext {
+  product: Product;
+  productPage: ProductPage;
+}
 interface ProductFixtures {
   getProduct: (category: string) => Product;
-  getProductAndNavigate: (
-    category: string,
-  ) => Promise<{ product: Product; productPage: ProductPage }>;
+  getProductAndNavigate: (category: string) => Promise<GetProductContext>;
+  getProductOutOfStock: () => Product;
 }
 
 export const productsTest = baseTest.extend<ProductFixtures>({
@@ -28,12 +31,20 @@ export const productsTest = baseTest.extend<ProductFixtures>({
   getProductAndNavigate: async ({ page, getProduct }, use) => {
     const goToProduct = async (
       category: string,
-    ): Promise<{ product: Product; productPage: ProductPage }> => {
-      const productDetails = getProduct(category);
-      await page.goto(productDetails.url);
+    ): Promise<GetProductContext> => {
+      const product = getProduct(category);
+      await page.goto(product.url);
       const productPage = new ProductPage(page);
-      return { product: productDetails, productPage };
+      return { product, productPage };
     };
     await use(goToProduct);
+  },
+  getProductOutOfStock: async ({}, use) => {
+    const productOutOfStock = (): Product => {
+      const product = products.find((p) => p.inStock === false);
+      expect(product, `No out-of-stock product was found`).toBeDefined();
+      return product!;
+    };
+    await use(productOutOfStock);
   },
 });
