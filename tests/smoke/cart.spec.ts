@@ -1,19 +1,12 @@
-import { CategoryPage } from '@_src/pages/category.page';
+import { expect, test } from '@_src/fixtures/merged.fixtures';
 import { products } from '@_src/test-data/products';
-import test, { expect } from '@playwright/test';
 
 test.describe('Category & Product Listing', () => {
-  let categoryPage: CategoryPage;
-
-  test.beforeEach(async ({ page }) => {
-    categoryPage = new CategoryPage(page);
-  });
-
   for (const product of products) {
     test(
       `DWS-201 Should display correct details for product ${product.title}`,
       { tag: '@regression' },
-      async () => {
+      async ({ categoryPage }) => {
         // Arrange
         const expectedPrice = product.price.toFixed(2);
 
@@ -31,35 +24,33 @@ test.describe('Category & Product Listing', () => {
   test(
     'DWS-202 Product is clickable and opens product details page',
     { tag: '@smoke' },
-    async () => {
+    async ({ categoryPage, getProduct }) => {
       // Arrange
-      const bookProduct = products.find((p) => p.categoryUrl === 'books');
-      expect(bookProduct).toBeDefined();
+      const bookProduct = getProduct('books');
 
       // Act
-      await categoryPage.goto(bookProduct!.categoryUrl);
+      await categoryPage.goto(bookProduct.categoryUrl);
       const productPage = await categoryPage.clickItemPicture(
-        bookProduct!.title,
+        bookProduct.title,
       );
 
       // Assert
       const url = await productPage.getUrl();
-      expect(url).toContain(bookProduct!.url);
-      await expect(productPage.productName).toHaveText(bookProduct!.title);
+      expect(url).toContain(bookProduct.url);
+      await expect(productPage.productName).toHaveText(bookProduct.title);
     },
   );
 
   test(
     'DWS-203 Out-of-stock product cannot be added to cart',
     { tag: '@smoke' },
-    async () => {
+    async ({ categoryPage, getProductOutOfStock }) => {
       // Arrange
-      const productOutOfStock = products.find((p) => !p.inStock);
-      expect(productOutOfStock).toBeDefined();
+      const productOutOfStock = getProductOutOfStock();
 
       // Act
-      await categoryPage.goto(productOutOfStock!.categoryUrl);
-      const item = await categoryPage.getItemByTitle(productOutOfStock!.title);
+      await categoryPage.goto(productOutOfStock.categoryUrl);
+      const item = await categoryPage.getItemByTitle(productOutOfStock.title);
 
       // Assert
       await expect(item.locator(categoryPage.addToCartButton)).toBeHidden();
@@ -69,18 +60,15 @@ test.describe('Category & Product Listing', () => {
   test(
     'DWS-204 User can add product to cart directly from listing',
     { tag: '@smoke' },
-    async () => {
+    async ({ categoryPage, getProduct }) => {
       // Arrange
-      const bookProduct = products.find(
-        (p) => p.categoryUrl === 'books' && p.inStock,
-      );
-      expect(bookProduct).toBeDefined();
+      const bookProduct = getProduct('books');
       const expectedNotification =
         'The product has been added to your shopping cart';
 
       // Act
-      await categoryPage.goto(bookProduct!.categoryUrl);
-      await categoryPage.clickAddToCart(bookProduct!.title);
+      await categoryPage.goto(bookProduct.categoryUrl);
+      await categoryPage.clickAddToCart(bookProduct.title);
 
       // Assert
       await expect(categoryPage.notificationBar).toHaveText(
@@ -93,17 +81,13 @@ test.describe('Category & Product Listing', () => {
   test(
     'DWS-205 Pagination / sorting does not break product visibility',
     { tag: '@regression' },
-    async () => {
+    async ({ homePage }) => {
       // Arrange
-      const productData = products.find(
-        (p) => p.categoryUrl === 'apparel-shoes',
-      );
-      expect(productData).toBeDefined();
       const sortValue = 'Name: Z to A';
       const productsPerPage = 4;
 
       // Act
-      await categoryPage.goto(productData!.categoryUrl);
+      const categoryPage = await homePage.mainMenu.selectApparelShoes();
       const categoryProductsCount = await categoryPage.itemDetails.count();
 
       // Act & Assert: Sort
@@ -125,20 +109,17 @@ test.describe('Category & Product Listing', () => {
   test(
     'DWS-206 Mini cart should display correct product name',
     { tag: '@regression' },
-    async () => {
+    async ({ categoryPage, getProduct }) => {
       // Arrange
-      const productData = products.find(
-        (p) => p.categoryUrl === 'cell-phones' && p.inStock,
-      );
-      expect(productData).toBeDefined();
+      const productData = getProduct('cell-phones');
 
       // Act
-      await categoryPage.goto(productData!.categoryUrl);
-      await categoryPage.clickAddToCart(productData!.title);
+      await categoryPage.goto(productData.categoryUrl);
+      await categoryPage.clickAddToCart(productData.title);
 
       // Assert
       await expect(categoryPage.topMenu.miniCartProductName).toHaveText(
-        productData!.title,
+        productData.title,
       );
     },
   );
@@ -146,17 +127,14 @@ test.describe('Category & Product Listing', () => {
   test(
     'DWS-207 Mini cart should display correct price and quantity',
     { tag: '@regression' },
-    async () => {
+    async ({ categoryPage, getProduct }) => {
       // Arrange
-      const productData = products.find(
-        (p) => p.categoryUrl === 'cell-phones' && p.inStock,
-      );
-      expect(productData).toBeDefined();
-      const itemPrice = productData!.price.toFixed(2);
+      const productData = getProduct('cell-phones');
+      const itemPrice = productData.price.toFixed(2);
 
       // Act
-      await categoryPage.goto(productData!.categoryUrl);
-      await categoryPage.clickAddToCart(productData!.title);
+      await categoryPage.goto(productData.categoryUrl);
+      await categoryPage.clickAddToCart(productData.title);
 
       // Assert
       await expect(categoryPage.topMenu.miniCartProductPrice).toContainText(

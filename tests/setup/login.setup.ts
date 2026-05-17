@@ -1,14 +1,9 @@
 import { STORAGE_STATE } from '@_pw-config';
-import { LoginPage } from '@_src/pages/login.page';
+import { expect, test as setup } from '@_src/fixtures/merged.fixtures';
 import { user } from '@_src/test-data/user.data';
-import { expect, test as setup } from '@playwright/test';
 
-setup('login and save session', async ({ page }) => {
-  //Arrange
-  const loginPage = new LoginPage(page);
-
+setup('login and save session', async ({ page, loginPage }) => {
   //Act
-  await loginPage.goto();
   await loginPage.login(user);
 
   //Assert

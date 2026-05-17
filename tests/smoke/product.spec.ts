@@ -1,18 +1,17 @@
+import { expect, test } from '@_src/fixtures/merged.fixtures';
 import { Product } from '@_src/models/product.model';
 import { CategoryPage } from '@_src/pages/category.page';
 import { ProductPage } from '@_src/pages/product.page';
 import { products } from '@_src/test-data/products';
-import test, { expect } from '@playwright/test';
 
 test.describe('Product Details', () => {
-  let bookProduct: Product;
+  let product: Product;
   let productPage: ProductPage;
 
-  test.beforeEach(async ({ page }) => {
-    bookProduct = products.find((p) => p.categoryUrl === 'books')!;
-    expect(bookProduct).toBeDefined();
-    productPage = new ProductPage(page);
-    await productPage.goto(bookProduct.url);
+  test.beforeEach(async ({ getProductAndNavigate }) => {
+    const productContext = await getProductAndNavigate('books');
+    product = productContext.product;
+    productPage = productContext.productPage;
   });
 
   test(
@@ -20,10 +19,10 @@ test.describe('Product Details', () => {
     { tag: '@smoke' },
     async () => {
       //Arrange
-      const expectedPrice = bookProduct.price.toFixed(2);
+      const expectedPrice = product.price.toFixed(2);
 
       //Assert
-      await expect(productPage.productName).toHaveText(bookProduct.title);
+      await expect(productPage.productName).toHaveText(product.title);
       await expect(productPage.currentPrice).toHaveText(expectedPrice);
     },
   );
@@ -37,10 +36,8 @@ test.describe('Product Details', () => {
       const categoryPage = new CategoryPage(page);
 
       //Act
-      await productPage.mainMenu.goToBooks();
-      const listingProduct = await categoryPage.getItemDetails(
-        bookProduct.title,
-      );
+      await productPage.mainMenu.selectBooks();
+      const listingProduct = await categoryPage.getItemDetails(product.title);
 
       //Assert
       expect(listingProduct.price).toEqual(productPrice);

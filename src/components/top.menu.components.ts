@@ -33,22 +33,22 @@ export class TopMenuComponent {
     this.miniCartProductQty = this.miniShoppingCart.locator('.quantity');
   }
 
-  async goToRegister(): Promise<RegisterPage> {
+  async selectRegister(): Promise<RegisterPage> {
     await this.registerLink.click();
     return new RegisterPage(this.page);
   }
 
-  async goToLogin(): Promise<LoginPage> {
+  async selectLogin(): Promise<LoginPage> {
     await this.loginLink.click();
     return new LoginPage(this.page);
   }
 
-  async goToCart(): Promise<CartPage> {
+  async selectCart(): Promise<CartPage> {
     await this.shoppingCartLink.click();
     return new CartPage(this.page);
   }
 
-  async goToWishlist(): Promise<WishListPage> {
+  async selectWishlist(): Promise<WishListPage> {
     await this.wishingListLink.click();
     return new WishListPage(this.page);
   }
