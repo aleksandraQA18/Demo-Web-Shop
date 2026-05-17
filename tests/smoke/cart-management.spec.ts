@@ -1,20 +1,17 @@
+import { expect, test } from '@_src/fixtures/merged.fixtures';
 import { Product } from '@_src/models/product.model';
 import { CartPage } from '@_src/pages/cart.page';
 import { ProductPage } from '@_src/pages/product.page';
-import { products } from '@_src/test-data/products';
-import test, { expect } from '@playwright/test';
 
 test.describe('Cart Management', () => {
   let productPage: ProductPage;
-  let item: Product;
+  let product: Product;
   let cartPage: CartPage;
 
-  test.beforeEach(async ({ page }) => {
-    item = products.find((p) => p.categoryUrl === 'books')!;
-    productPage = new ProductPage(page);
-    await productPage.goto(item.url);
+  test.beforeEach(async ({ getProductAndNavigate }) => {
+    ({ product, productPage } = await getProductAndNavigate('books'));
     await productPage.clickAddToCartButton();
-    cartPage = await productPage.topMenu.goToCart();
+    cartPage = await productPage.topMenu.selectCart();
   });
 
   test(
@@ -22,8 +19,8 @@ test.describe('Cart Management', () => {
     { tag: '@regression' },
     async () => {
       // Arrange
-      const expectedTitle = item.title;
-      const expectedPrice = item.price.toFixed(2);
+      const expectedTitle = product.title;
+      const expectedPrice = product.price.toFixed(2);
 
       // Assert
       await expect(cartPage.productName).toHaveText(expectedTitle);
@@ -53,7 +50,7 @@ test.describe('Cart Management', () => {
     async () => {
       //Arrange
       const expectedQty = '3';
-      const itemPrice = item.price;
+      const itemPrice = product.price;
       const expectedSubTotalPrice = (Number(expectedQty) * itemPrice).toFixed(
         2,
       );
@@ -84,14 +81,14 @@ test.describe('Cart Management', () => {
   test(
     'DWS-405 Cart data persists after page refresh',
     { tag: '@regression' },
-    async () => {
+    async ({ getProductAndNavigate }) => {
       //Arrange
-      const item2 = products.find((p) => p.categoryUrl === 'cell-phones')!;
+      const { product: secondProduct, productPage } =
+        await getProductAndNavigate('cell-phones');
 
       //Act - add and edit second product
-      await productPage.goto(item2.url);
       await productPage.clickAddToCartButton();
-      cartPage = await productPage.topMenu.goToCart();
+      cartPage = await productPage.topMenu.selectCart();
       await cartPage.editItemQty('4', 1);
 
       //verify if quantity is updated
@@ -101,8 +98,8 @@ test.describe('Cart Management', () => {
       await cartPage.reloadPage();
 
       //Assert
-      await expect(cartPage.productName.first()).toHaveText(item.title);
-      await expect(cartPage.productName.last()).toHaveText(item2.title);
+      await expect(cartPage.productName.first()).toHaveText(product.title);
+      await expect(cartPage.productName.last()).toHaveText(secondProduct.title);
 
       await expect(cartPage.qtyInput.first()).toHaveValue('1');
       await expect(cartPage.qtyInput.last()).toHaveValue('4');

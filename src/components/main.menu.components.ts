@@ -30,43 +30,43 @@ export class MainMenuComponent {
     this.giftCardsButton = this.page.locator('.top-menu a[href="/gift-cards"]');
   }
 
-  async goToBooks(): Promise<CategoryPage> {
+  async selectBooks(): Promise<CategoryPage> {
     await this.booksButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToComputers(): Promise<CategoryPage> {
+  async selectComputers(): Promise<CategoryPage> {
     await this.computersButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToElectronics(): Promise<CategoryPage> {
+  async selectElectronics(): Promise<CategoryPage> {
     await this.electronicsButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToCellPhones(): Promise<CategoryPage> {
+  async selectCellPhones(): Promise<CategoryPage> {
     await this.electronicsButton.hover();
     await this.cellPhoneButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToApparelShoes(): Promise<CategoryPage> {
+  async selectApparelShoes(): Promise<CategoryPage> {
     await this.apparelShoesButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToDigitalDownloads(): Promise<CategoryPage> {
+  async selectDigitalDownloads(): Promise<CategoryPage> {
     await this.digitalDownloadsButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToJewelry(): Promise<CategoryPage> {
+  async selectJewelry(): Promise<CategoryPage> {
     await this.jewelryButton.click();
     return new CategoryPage(this.page);
   }
 
-  async goToGiftCards(): Promise<CategoryPage> {
+  async selectGiftCards(): Promise<CategoryPage> {
     await this.giftCardsButton.click();
     return new CategoryPage(this.page);
   }

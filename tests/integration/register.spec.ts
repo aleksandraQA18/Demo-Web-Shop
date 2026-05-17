@@ -1,16 +1,16 @@
 import { createRegisterData } from '@_src/factory/register.user';
-import { test } from '@_src/fixtures/pages.fixtures';
+import { pagesObjectsTest } from '@_src/fixtures/pages.fixtures';
 import { RegisterUser } from '@_src/models/user.model';
 import { expect } from '@playwright/test';
 
-test.describe('Verify register', () => {
+pagesObjectsTest.describe('Verify register', () => {
   let registerUserData: RegisterUser;
 
-  test.beforeEach(async () => {
+  pagesObjectsTest.beforeEach(async () => {
     registerUserData = createRegisterData();
   });
 
-  test('register new user DWS-06-01', async ({ registerPage }) => {
+  pagesObjectsTest('register new user DWS-06-01', async ({ registerPage }) => {
     //Arrange
     const expectedMessage = 'Your registration completed';
 
@@ -26,31 +26,35 @@ test.describe('Verify register', () => {
     );
   });
 
-  test('register new user with invalid email DWS-06-02', async ({
-    registerPage,
-  }) => {
-    //Arrange
-    registerUserData.email = 'invalidemail';
-    const expectedMessage = 'Wrong email';
+  pagesObjectsTest(
+    'register new user with invalid email DWS-06-02',
+    async ({ registerPage }) => {
+      //Arrange
+      registerUserData.email = 'invalidemail';
+      const expectedMessage = 'Wrong email';
 
-    //Act
-    await registerPage.register(registerUserData);
+      //Act
+      await registerPage.register(registerUserData);
 
-    //Assert
-    await expect(registerPage.invalidEmailEror).toHaveText(expectedMessage);
-  });
+      //Assert
+      await expect(registerPage.invalidEmailEror).toHaveText(expectedMessage);
+    },
+  );
 
-  test('register new user with invalid password DWS-06-03', async ({
-    registerPage,
-  }) => {
-    //Arrange
-    registerUserData.password = 'test';
-    const expectedMessage = 'The password should have at least 6 characters.';
+  pagesObjectsTest(
+    'register new user with invalid password DWS-06-03',
+    async ({ registerPage }) => {
+      //Arrange
+      registerUserData.password = 'test';
+      const expectedMessage = 'The password should have at least 6 characters.';
 
-    //Act
-    await registerPage.register(registerUserData);
+      //Act
+      await registerPage.register(registerUserData);
 
-    //Assert
-    await expect(registerPage.invalidPasswordError).toHaveText(expectedMessage);
-  });
+      //Assert
+      await expect(registerPage.invalidPasswordError).toHaveText(
+        expectedMessage,
+      );
+    },
+  );
 });
