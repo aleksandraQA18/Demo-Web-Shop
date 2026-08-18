@@ -25,14 +25,10 @@ export function generateBillingAddressData(): BillingAddress {
     firstName,
     lastName,
     email: faker.internet.email({ firstName, lastName }),
-    company: faker.company.name(),
-    country: faker.location.country(),
-    state: faker.location.state(),
+    country: 'United States',
     city: faker.location.city(),
     address1: faker.location.streetAddress(),
-    address2: faker.location.secondaryAddress(),
     zip: faker.location.zipCode(),
     phone: faker.phone.number(),
-    fax: faker.phone.number(),
   };
 }
