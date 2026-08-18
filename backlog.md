@@ -53,7 +53,7 @@
 📝 DWS-604 Duplicate email registration is blocked [REGRESSION]
 ✅ DWS-605 User can login with valid credentials [SMOKE]
 ✅ DWS-606 Error message for invalid login credentials [REGRESSION]
-📝 DWS-607 User session persists after login [REGRESSION]
+📝 DWS-607 DWS-606 Error message for invalid password [REGRESSION]
 📝 DWS-608 User can logout successfully [SMOKE]
 
 🔹 EPIC 7: Data Consistency

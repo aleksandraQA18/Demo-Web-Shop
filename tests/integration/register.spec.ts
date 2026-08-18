@@ -9,47 +9,57 @@ test.describe('Verify register', () => {
     registerUserData = createRegisterData();
   });
 
-  test('register new user DWS-06-01', async ({ registerPage }) => {
-    //Arrange
-    const expectedMessage = 'Your registration completed';
+  test(
+    'DWS-601 Successful user registration',
+    { tag: '@smoke' },
+    async ({ registerPage }) => {
+      //Arrange
+      const expectedMessage = 'Your registration completed';
 
-    //Act
-    const registerResultPage = await registerPage.register(registerUserData);
+      //Act
+      const registerResultPage = await registerPage.register(registerUserData);
 
-    //Assert
-    await expect(registerResultPage.registerCompletedMessage).toHaveText(
-      expectedMessage,
-    );
-    await expect(registerResultPage.topMenu.userAccountLink).toHaveText(
-      registerUserData.email,
-    );
-  });
+      //Assert
+      await expect(registerResultPage.registerCompletedMessage).toHaveText(
+        expectedMessage,
+      );
+      await expect(registerResultPage.topMenu.userAccountLink).toHaveText(
+        registerUserData.email,
+      );
+    },
+  );
 
-  test('register new user with invalid email DWS-06-02', async ({
-    registerPage,
-  }) => {
-    //Arrange
-    registerUserData.email = 'invalidemail';
-    const expectedMessage = 'Wrong email';
+  test(
+    'DWS-602 Error message for invalid email during registration',
+    { tag: '@regression' },
+    async ({ registerPage }) => {
+      //Arrange
+      registerUserData.email = 'invalidemail';
+      const expectedMessage = 'Wrong email';
 
-    //Act
-    await registerPage.register(registerUserData);
+      //Act
+      await registerPage.register(registerUserData);
 
-    //Assert
-    await expect(registerPage.invalidEmailEror).toHaveText(expectedMessage);
-  });
+      //Assert
+      await expect(registerPage.invalidEmailEror).toHaveText(expectedMessage);
+    },
+  );
 
-  test('register new user with invalid password DWS-06-03', async ({
-    registerPage,
-  }) => {
-    //Arrange
-    registerUserData.password = 'test';
-    const expectedMessage = 'The password should have at least 6 characters.';
+  test(
+    'DWS-603 Error message for weak password',
+    { tag: '@regression' },
+    async ({ registerPage }) => {
+      //Arrange
+      registerUserData.password = 'test';
+      const expectedMessage = 'The password should have at least 6 characters.';
 
-    //Act
-    await registerPage.register(registerUserData);
+      //Act
+      await registerPage.register(registerUserData);
 
-    //Assert
-    await expect(registerPage.invalidPasswordError).toHaveText(expectedMessage);
-  });
+      //Assert
+      await expect(registerPage.invalidPasswordError).toHaveText(
+        expectedMessage,
+      );
+    },
+  );
 });
