@@ -1,151 +1,174 @@
-# Demo Web Shop - Playwright Test Suite
+# Demo Web Shop — QA Automation
 
-Test automation project for the **Demo Web Shop** application using **Playwright** framework written in TypeScript.
+Playwright + TypeScript test automation project for an e-commerce application.
 
-## 📝 Overview
+## About the project
 
-This project provides comprehensive end-to-end and integration testing for a demo e-commerce web shop. It includes:
+This project was created to practice and demonstrate UI test automation using Playwright and TypeScript.
 
-- Smoke tests for critical user flows
-- Integration tests for user authentication and shopping workflows
-- Page Object Model (POM) architecture for maintainability
-- Reusable test data and components
+The test suite covers selected user journeys of the Demo Web Shop, with a focus on registration, authentication, shopping cart and checkout flows.
 
-> ⚠️ **Note:** This project does not have a backend API. Test data is populated from static files in `src/test-data/` directory for learning and demonstration purposes.
+The project also demonstrates the use of Page Object Model, custom fixtures, test data generation and different types of automated tests.
 
-## 🛠 Tech Stack
+## Test coverage
 
-- **Playwright** v1.57.0 - Cross-browser automation framework
-- **TypeScript** - Type-safe test code
-- **ESLint** - Code quality and style enforcement
-- **Prettier** - Code formatting
-- **Husky** - Git hooks for pre-commit checks
+### Registration & Login
 
-## 📦 Installation
+- User registration
+- User login
+- Authentication setup using Playwright `storageState`
 
-1. **Clone the repository**
+### Product & Cart
 
-   ```bash
-   git clone <repository-url>
-   cd demo-web-shop-pw
-   ```
+- Product navigation
+- Adding products to the cart
+- Cart management
+- Cart validation
 
-2. **Install dependencies**
+### Checkout
 
-   ```bash
-   npm install
-   ```
+#### Guest customer
 
-3. **Configure environment variables**
+The test verifies the checkout flow for a guest customer:
 
-   Create a `.env` file in the project root:
+`Product → Cart → Checkout → Guest checkout → Billing → Order confirmation`
 
-   ```env
-   BASE_URL=https://demowebshop.tricentis.com
-   EMAIL=test@example.com
-   PASSWORD=testPassword123
-   ```
+The test validates, among other things:
 
-## 🚀 Running Tests
+- selected product
+- product price
+- checkout flow
+- successful order confirmation
 
-### Run all tests
+#### Registered customer
+
+The test covers the checkout flow for a newly registered customer:
+
+`Product → Cart → Checkout → Registration → Checkout → Billing → Order confirmation`
+
+A new test user is generated for each test run, so the test does not depend on a shared customer account.
+
+## Test architecture
+
+The project uses the **Page Object Model** to separate page interactions from test scenarios.
+
+### Page Objects
+
+Page classes contain locators and actions related to individual pages, for example:
+
+- `LoginPage`
+- `RegisterPage`
+- `ProductPage`
+- `CartPage`
+- `CheckoutPage`
+- `OrderCompletedPage`
+
+### Fixtures
+
+Custom Playwright fixtures are used for reusable test setup.
+
+For example, the `getProductAndNavigate` fixture prepares a product and navigates to its product page.
+
+Business actions such as adding a product to the cart remain visible in the test scenario.
+
+### Test data
+
+Test data is separated from test logic and generated using Faker where unique data is required.
+
+The project uses TypeScript interfaces to describe test data, including customer and billing address data.
+
+## Project structure
+
+```text
+├── components/
+├── data/
+├── fixtures/
+├── models/
+├── pages/
+├── tests/
+│   ├── e2e/
+│   ├── integration/
+│   ├── setup/
+│   └── smoke/
+├── utils/
+├── playwright.config.ts
+└── package.json
+```
+
+## Locator strategy
+
+The tests use Playwright locators with an emphasis on readable and stable selectors, including:
+
+- `getByRole`
+- `getByText`
+- stable CSS selectors / IDs where appropriate
+
+Example:
+
+```ts
+page.getByRole('link', { name: 'Addresses' });
+```
+
+For form controls with stable IDs:
+
+```ts
+page.locator('#BillingNewAddress_CountryId');
+```
+
+## Technologies
+
+- **Playwright**
+- **TypeScript**
+- **Faker** — test data generation
+- **ESLint**
+- **Prettier**
+- **Husky**
+
+## Running the tests
+
+Install dependencies:
 
 ```bash
-npm test
+npm install
 ```
 
-### Run smoke tests only
+Install Playwright browsers:
 
 ```bash
-npm run test:smoke
+npx playwright install
 ```
 
-### Run tests in headed mode (see browser)
+Run all tests:
 
 ```bash
-npm run test:headed
+npx playwright test
 ```
 
-### Run tests with UI mode
+Run smoke tests:
 
 ```bash
-npm run test:ui
+npx playwright test --grep @smoke
 ```
 
-### View test report
+Run a specific test file:
 
 ```bash
-npm run show-report
+npx playwright test <path-to-test>
 ```
 
-## 📂 Project Structure
+Open the Playwright HTML report:
 
-```
-demo-web-shop-pw/
-├── config/                      # Configuration files
-│   ├── env.config.ts           # Environment setup
-│   └── global.setup.ts         # Global test setup
-├── src/                         # Source code
-│   ├── components/             # Reusable UI components
-│   │   ├── main.menu.components.ts
-│   │   └── top.menu.components.ts
-│   ├── pages/                  # Page Object Models
-│   │   ├── base.page.ts
-│   │   ├── home.page.ts
-│   │   ├── cart.page.ts
-│   │   ├── category.page.ts
-│   │   ├── login.page.ts
-│   │   ├── product.page.ts
-│   │   ├── register.page.ts
-│   │   └── register.result.page.ts
-│   ├── test-data/              # Static test fixtures (NO API)
-│   │   ├── navigation.ts       # Navigation test data
-│   │   ├── products.ts         # Product fixtures
-│   │   └── user.data.ts        # User credentials
-│   ├── factory/                # Test data builders
-│   │   └── register.user.ts
-│   └── models/                 # Data models
-│       ├── product.model.ts
-│       └── user.model.ts
-├── tests/                       # Test suites
-│   ├── smoke/                  # Critical path tests
-│   ├── integration/            # Feature workflow tests
-│   ├── e2e/                    # End-to-end scenarios
-│   └── setup/                  # Setup fixtures
-├── playwright-report/          # Test reports (generated)
-├── test-results/               # Test results (generated)
-├── playwright.config.ts        # Playwright configuration
-├── eslint.config.mjs           # ESLint configuration
-├── tsconfig.json               # TypeScript configuration
-├── package.json                # Project dependencies
-├── backlog.md                  # Project backlog & requirements
-├── helper.md                   # Helper documentation
-└── README.md                   # This file
+```bash
+npx playwright show-report
 ```
 
-## 🧪 Test Categories
+## Test reports
 
-Tests are organized with tags for selective execution:
+Playwright HTML Reporter is configured to provide test execution results and debugging information after the test run.
 
-- **@smoke** - Fast critical path tests (happy path flows)
-- **@regression** - Broader coverage tests
-- **@integration** - Feature interaction tests
+## About me
 
-## 📊 Test Data Strategy
+**Aleksandra Kowalska**  
+QA Specialist | API & Test Automation
 
-Since this project has **no backend API**, test data is managed statically:
-
-- **Products**: Predefined list in `src/test-data/products.ts`
-- **User Credentials**: Test accounts in `src/test-data/user.data.ts`
-- **Builders**: Factory classes in `src/factory/` generate test users as needed
-
-Test data is imported directly into test files and ensures consistent, reproducible test execution.
-
-## 🎓 Learning Resources
-
-This project is designed for **learning and educational purposes**. It demonstrates:
-
-- Test automation best practices
-- TypeScript in test automation
-- Page Object Model implementation
-- Test organization and reporting
+This project is part of my QA automation portfolio and reflects my practical work with Playwright, TypeScript and test automation.
