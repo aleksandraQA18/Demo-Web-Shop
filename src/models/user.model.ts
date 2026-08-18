@@ -10,3 +10,14 @@ export interface RegisterUser {
   email: string;
   password: string;
 }
+
+export interface BillingAddress {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  city: string;
+  address1: string;
+  zip: string;
+  phone: string;
+}

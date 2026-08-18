@@ -1,4 +1,4 @@
-import { RegisterUser } from '@_src/models/user.model';
+import { BillingAddress, RegisterUser } from '@_src/models/user.model';
 import { faker } from '@faker-js/faker';
 
 export function createRegisterData(): RegisterUser {
@@ -15,4 +15,24 @@ export function createRegisterData(): RegisterUser {
     lastName: registerData.lastName,
   });
   return registerData;
+}
+
+export function generateBillingAddressData(): BillingAddress {
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
+
+  return {
+    firstName,
+    lastName,
+    email: faker.internet.email({ firstName, lastName }),
+    company: faker.company.name(),
+    country: faker.location.country(),
+    state: faker.location.state(),
+    city: faker.location.city(),
+    address1: faker.location.streetAddress(),
+    address2: faker.location.secondaryAddress(),
+    zip: faker.location.zipCode(),
+    phone: faker.phone.number(),
+    fax: faker.phone.number(),
+  };
 }

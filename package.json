@@ -13,7 +13,8 @@
     "test:ui": "npx playwright test -- --ui",
     "show-report": "npx playwright show-report",
     "test:smoke": "npx playwright test --grep \"@smoke\"",
-    "test:regression": "npx playwright test --grep \"@regression\""
+    "test:regression": "npx playwright test --grep \"@regression\"",
+    "test:E2E": "npx playwright test --grep \"@E2E\""
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@faker-js/faker": "^10.2.0",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.60.0",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^25.0.6",
     "eslint": "^9.39.2",
