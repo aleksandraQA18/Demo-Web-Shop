@@ -10,7 +10,7 @@ test.describe('Verify register', () => {
   });
 
   test(
-    'DWS-601 Successful user registration',
+    'DWS-601 User can register with valid data',
     { tag: '@smoke' },
     async ({ registerPage }) => {
       //Arrange
@@ -30,7 +30,7 @@ test.describe('Verify register', () => {
   );
 
   test(
-    'DWS-602 Error message for invalid email during registration',
+    'DWS-602 User cannot register with invalid email',
     { tag: '@regression' },
     async ({ registerPage }) => {
       //Arrange
@@ -46,7 +46,7 @@ test.describe('Verify register', () => {
   );
 
   test(
-    'DWS-603 Error message for weak password',
+    'DWS-603 User cannot register with weak password',
     { tag: '@regression' },
     async ({ registerPage }) => {
       //Arrange

@@ -3,7 +3,7 @@ import { user } from '@_src/test-data/user.data';
 
 test.describe('Verify login', () => {
   test(
-    'DWS-605 User can login with valid credentials',
+    'DWS-605 User can log in with valid credentials',
     { tag: '@smoke' },
     async ({ loginPage }) => {
       //Arrange
@@ -19,7 +19,7 @@ test.describe('Verify login', () => {
   );
 
   test(
-    'DWS-606 Error message for invalid login credentials',
+    'DWS-606 User cannot log in with invalid credentials',
     { tag: '@regression' },
     async ({ loginPage }) => {
       //Arrange
@@ -36,7 +36,7 @@ test.describe('Verify login', () => {
   );
 
   test(
-    'DWS-607 DWS-606 Error message for invalid password',
+    'DWS-607 User cannot log in with invalid password',
     { tag: '@regression' },
     async ({ loginPage }) => {
       //Arrange

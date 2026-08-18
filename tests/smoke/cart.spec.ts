@@ -4,7 +4,7 @@ import { products } from '@_src/test-data/products';
 test.describe('Category & Product Listing', () => {
   for (const product of products) {
     test(
-      `DWS-201 Should display correct details for product ${product.title}`,
+      `DWS-201 Product listing displays correct details for ${product.title}`,
       { tag: '@regression' },
       async ({ categoryPage }) => {
         // Arrange
@@ -22,7 +22,7 @@ test.describe('Category & Product Listing', () => {
   }
 
   test(
-    'DWS-202 Product is clickable and opens product details page',
+    'DWS-202 User can open product details from the listing',
     { tag: '@smoke' },
     async ({ categoryPage, getProduct }) => {
       // Arrange
@@ -42,7 +42,7 @@ test.describe('Category & Product Listing', () => {
   );
 
   test(
-    'DWS-203 Out-of-stock product cannot be added to cart',
+    'DWS-203 User cannot add an out-of-stock product to cart',
     { tag: '@smoke' },
     async ({ categoryPage, getProductOutOfStock }) => {
       // Arrange
@@ -58,7 +58,7 @@ test.describe('Category & Product Listing', () => {
   );
 
   test(
-    'DWS-204 User can add product to cart directly from listing',
+    'DWS-204 User can add a product to cart from the listing',
     { tag: '@smoke' },
     async ({ categoryPage, getProduct }) => {
       // Arrange
@@ -79,7 +79,7 @@ test.describe('Category & Product Listing', () => {
   );
 
   test(
-    'DWS-205 Pagination / sorting does not break product visibility',
+    'DWS-205 Product remains visible after pagination or sorting',
     { tag: '@regression' },
     async ({ homePage }) => {
       // Arrange
@@ -107,7 +107,7 @@ test.describe('Category & Product Listing', () => {
   );
 
   test(
-    'DWS-206 Mini cart should display correct product name',
+    'DWS-206 Mini cart displays the correct product name',
     { tag: '@regression' },
     async ({ categoryPage, getProduct }) => {
       // Arrange
@@ -125,7 +125,7 @@ test.describe('Category & Product Listing', () => {
   );
 
   test(
-    'DWS-207 Mini cart should display correct price and quantity',
+    'DWS-207 Mini cart displays the correct price and quantity',
     { tag: '@regression' },
     async ({ categoryPage, getProduct }) => {
       // Arrange

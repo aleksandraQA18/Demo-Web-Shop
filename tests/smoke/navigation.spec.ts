@@ -168,7 +168,9 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
     expect(url).toContain(expectedUrl);
   });
 
-  test('DWS-105 Clicking logo redirects to home page', async ({ homePage }) => {
+  test('DWS-105 User can return to the home page by clicking the logo', async ({
+    homePage,
+  }) => {
     //Arrange
     const expectedTitle = 'Demo Web Shop';
 
@@ -185,7 +187,7 @@ test.describe('User can navigate between pages', { tag: '@smoke' }, () => {
   });
 
   test(
-    'DWS-106 Navigation preserves application state (cart count remains consistent)',
+    'DWS-106 Cart count is preserved during navigation',
     { tag: '@regression' },
     async ({ homePage }) => {
       //Arrange

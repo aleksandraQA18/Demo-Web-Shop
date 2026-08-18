@@ -15,7 +15,7 @@ test.describe('Cart Management', () => {
   });
 
   test(
-    'DWS-401 Cart reflects correct price and quantity',
+    'DWS-401 Cart displays the correct price and quantity',
     { tag: '@regression' },
     async () => {
       // Arrange
@@ -45,7 +45,7 @@ test.describe('Cart Management', () => {
   );
 
   test(
-    'DWS-403 Updating quantity recalculates total price',
+    'DWS-403 Cart total is recalculated after changing quantity',
     { tag: '@regression' },
     async () => {
       //Arrange

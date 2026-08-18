@@ -28,7 +28,7 @@ test.describe('Product Details', () => {
   );
 
   test(
-    'DWS-302 Product price is consistent with listing page',
+    'DWS-302 Product price matches the listing page',
     { tag: '@regression' },
     async ({ page }) => {
       //Arrange
@@ -45,7 +45,7 @@ test.describe('Product Details', () => {
   );
 
   test(
-    'DWS-303 User can add available product to cart from product page',
+    'DWS-303 User can add an available product to cart',
     { tag: '@smoke' },
     async () => {
       //Arrange
@@ -61,7 +61,7 @@ test.describe('Product Details', () => {
   );
 
   test(
-    'DWS-304 Adding product updates cart counter correctly',
+    'DWS-304 Cart counter is updated after adding a product',
     { tag: '@smoke' },
     async () => {
       //Arrange

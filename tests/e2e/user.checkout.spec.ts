@@ -50,7 +50,7 @@ test.describe('Checkout', () => {
   );
 
   test(
-    'DWS-502 New registered user can complete checkout',
+    'DWS-502 Newly registered user can complete checkout',
     { tag: ['@E2E'] },
     async ({}) => {
       // Arrange
