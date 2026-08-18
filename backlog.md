@@ -40,15 +40,10 @@
 
 🔹 EPIC 5: Checkout (🔥 CRITICAL)
 
-📝 DWS-501 User can proceed to checkout from cart [SMOKE][E2E]
-📝 DWS-502 Guest user can complete checkout [E2E]
-📝 DWS-503 Logged-in user can complete checkout [E2E]
-📝 DWS-504 User must provide valid billing details [REGRESSION]
-📝 DWS-505 Invalid form data shows validation errors [REGRESSION]
-📝 DWS-506 User can select shipping method [REGRESSION]
-📝 DWS-507 User can select payment method [REGRESSION]
-📝 DWS-508 Order confirmation is displayed after successful checkout [SMOKE][E2E]
-📝 DWS-509 Order summary contains correct products and pricing [E2E]
+✅ DWS-501 Guest user can complete checkout [E2E]
+✅ DWS-502 New registered user can complete checkout [E2E]
+📝 DWS-503 User must provide valid billing details [REGRESSION]
+📝 DWS-504 Invalid form data shows validation errors [REGRESSION]
 
 🔹 EPIC 6: Authentication
 
@@ -58,7 +53,7 @@
 📝 DWS-604 Duplicate email registration is blocked [REGRESSION]
 ✅ DWS-605 User can login with valid credentials [SMOKE]
 ✅ DWS-606 Error message for invalid login credentials [REGRESSION]
-📝 DWS-607 User session persists after login [REGRESSION]
+📝 DWS-607 DWS-606 Error message for invalid password [REGRESSION]
 📝 DWS-608 User can logout successfully [SMOKE]
 
 🔹 EPIC 7: Data Consistency
@@ -76,9 +71,3 @@
 📝 DWS-804 Browser navigation does not break flow [REGRESSION]
 📝 DWS-805 Special characters in forms are handled correctly [REGRESSION]
 📝 DWS-806 Very long input values are validated [REGRESSION]
-
-🔹 EPIC 9: Basic Non-Functional
-
-📝 DWS-901 Key pages load within acceptable time [REGRESSION]
-📝 DWS-902 No critical JS errors in console [REGRESSION]
-📝 DWS-903 Basic accessibility works (focus, labels, interactions) [REGRESSION]
