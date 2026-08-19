@@ -80,46 +80,28 @@ The project uses TypeScript interfaces to describe test data, including customer
 ## Project structure
 
 ```text
-├── components/
-├── data/
-├── fixtures/
-├── models/
-├── pages/
+├── src/
+    ├── components/
+    ├── factory/
+    ├── fixtures/
+    ├── models/
+    ├── pages/
+    ├── test-data/
 ├── tests/
 │   ├── e2e/
 │   ├── integration/
 │   ├── setup/
 │   └── smoke/
-├── utils/
+├── backlog.md
 ├── playwright.config.ts
 └── package.json
-```
-
-## Locator strategy
-
-The tests use Playwright locators with an emphasis on readable and stable selectors, including:
-
-- `getByRole`
-- `getByText`
-- stable CSS selectors / IDs where appropriate
-
-Example:
-
-```ts
-page.getByRole('link', { name: 'Addresses' });
-```
-
-For form controls with stable IDs:
-
-```ts
-page.locator('#BillingNewAddress_CountryId');
 ```
 
 ## Technologies
 
 - **Playwright**
 - **TypeScript**
-- **Faker** — test data generation
+- **Faker**
 - **ESLint**
 - **Prettier**
 - **Husky**
@@ -161,14 +143,3 @@ Open the Playwright HTML report:
 ```bash
 npx playwright show-report
 ```
-
-## Test reports
-
-Playwright HTML Reporter is configured to provide test execution results and debugging information after the test run.
-
-## About me
-
-**Aleksandra Kowalska**  
-QA Specialist | API & Test Automation
-
-This project is part of my QA automation portfolio and reflects my practical work with Playwright, TypeScript and test automation.
